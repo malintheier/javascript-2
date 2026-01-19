@@ -8,7 +8,57 @@
   </head>
   <body>
     <header></header>
-    <main></main>
+    <main>
+      <div class="register-container">
+        <h1>Create Account</h1>
+        <form id="registerForm" class="register-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="avatar">Avatar URL (optional)</label>
+            <input
+              type="url"
+              id="avatar"
+              name="avatar"
+              placeholder="Enter avatar image URL"
+            />
+          </div>
+
+          <button type="submit" class="btn-primary">Register</button>
+        </form>
+      </div>
+    </main>
     <footer></footer>
   </body>
 </html>
