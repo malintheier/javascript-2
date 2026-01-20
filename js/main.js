@@ -13,6 +13,7 @@ async function registerUser(userDetails) {
       },
     };
     const response = await fetch(AUTH_REGISTER_URL, fetchOptions);
+    const json = await response.json();
   } catch (error) {
     console.log(error);
   }
