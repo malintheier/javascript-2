@@ -1,12 +1,6 @@
 const loginForm = document.querySelector("#loginForm");
 
-function addToLocalStorage(key, value) {
-  localStorage.setItem(key, value);
-}
-
-function getFromLocalStorage(key) {
-  return localStorage.getItem(key);
-}
+import { addToLocalStorage } from "./utils-temporary.js";
 
 const BASE_API_URL = "https://v2.api.noroff.dev";
 const AUTH_LOGIN_URL = `${BASE_API_URL}/auth/login`;
