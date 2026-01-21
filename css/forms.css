@@ -1,0 +1,18 @@
+.post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-input {
+  padding: 8px;
+}
+
+.form-textarea {
+  padding: 8px;
+  min-height: 100px;
+}
+
+label {
+  font-weight: 500;
+}
