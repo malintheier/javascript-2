@@ -31,7 +31,12 @@ function generatePostsHTML(posts) {
     title.textContent = posts[i].title;
     const body = document.createElement("p");
     body.textContent = posts[i].body;
-    postContainer.append(title, body);
+    const author = document.createElement("p");
+    author.textContent = `Author: ${posts[i].author?.name || "Unknown"}`;
+    const image = document.createElement("img");
+    image.src = posts[i].image?.url || "";
+    image.alt = posts[i].image?.alt || "";
+    postContainer.append(title, body, author, image);
     displayContainer.append(postContainer);
   }
 }
