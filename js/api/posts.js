@@ -17,3 +17,20 @@ export async function fetchPosts() {
     console.log(error);
   }
 }
+
+export async function fetchSinglePost(id) {
+  try {
+    const accessToken = getFromLocalStorage("accessToken");
+    const fetchOptions = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": NOROFF_API_KEY,
+      },
+    };
+    const response = await fetch(`${SOCIAL_URL}/posts/${id}`, fetchOptions);
+    const json = await response.json();
+    return json.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
