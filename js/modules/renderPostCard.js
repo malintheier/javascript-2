@@ -3,6 +3,7 @@ import { getParam } from "../utils/getParam.js";
 import { getUser } from "../utils/storage.js";
 
 export function renderPostCard(post, showEditButton = false) {
+  const postContainer = document.createElement("div");
   postContainer.classList.add("post-card");
   postContainer.style.cursor = "pointer";
 
@@ -34,6 +35,9 @@ export function renderPostCard(post, showEditButton = false) {
         post.author.email === currentUser.email);
 
     if (isOwner) {
+      const buttonContainer = document.createElement("div");
+      buttonContainer.classList.add("post-buttons");
+
       const editBtn = document.createElement("button");
       editBtn.textContent = "Edit Post";
       editBtn.classList.add("btn-edit");
@@ -42,7 +46,18 @@ export function renderPostCard(post, showEditButton = false) {
         const event = new CustomEvent("editPost", { detail: post });
         window.dispatchEvent(event);
       });
-      postContainer.append(editBtn);
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Delete Post";
+      deleteBtn.classList.add("btn-delete");
+      deleteBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const event = new CustomEvent("deletePost", { detail: post });
+        window.dispatchEvent(event);
+      });
+
+      buttonContainer.append(editBtn, deleteBtn);
+      postContainer.append(buttonContainer);
     }
   }
 

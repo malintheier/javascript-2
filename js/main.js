@@ -1,4 +1,4 @@
-import { fetchPosts, createPost, updatePost } from "./api/posts.js";
+import { fetchPosts, createPost, updatePost, deletePost } from "./api/posts.js";
 import { generatePostsHTML } from "./modules/renderPostList.js";
 import { requireAuth } from "./utils/authGuard.js";
 import { showModal, showMessage } from "./utils/showMessage.js";
@@ -110,7 +110,12 @@ function openEditPostModal(post) {
     if (result) {
       showMessage("Post updated successfully!", "success");
       modal.remove();
-      loadFeed();
+
+      if (displayContainer) {
+        loadFeed();
+      } else {
+        location.reload();
+      }
     } else {
       showMessage("Failed to update post", "error");
     }
@@ -120,7 +125,9 @@ function openEditPostModal(post) {
 async function main() {
   if (!requireAuth()) return;
 
-  await loadFeed();
+  if (displayContainer) {
+    await loadFeed();
+  }
 
   const createBtn = document.getElementById("createPostBtn");
   if (createBtn) {
@@ -129,6 +136,24 @@ async function main() {
 
   window.addEventListener("editPost", (e) => {
     openEditPostModal(e.detail);
+  });
+
+  window.addEventListener("deletePost", async (e) => {
+    if (confirm("Are you sure you want to delete this post?")) {
+      const result = await deletePost(e.detail.id);
+      if (result) {
+        showMessage("Post deleted successfully!", "success");
+
+        // If on feed page, reload feed; otherwise go to feed page
+        if (displayContainer) {
+          loadFeed();
+        } else {
+          window.location.href = "feed.html";
+        }
+      } else {
+        showMessage("Failed to delete post", "error");
+      }
+    }
   });
 }
 
