@@ -10,7 +10,10 @@ export async function fetchPosts() {
         "X-Noroff-API-Key": NOROFF_API_KEY,
       },
     };
-    const response = await fetch(`${SOCIAL_URL}/posts`, fetchOptions);
+    const response = await fetch(
+      `${SOCIAL_URL}/posts?_author=true`,
+      fetchOptions,
+    );
     const json = await response.json();
     return json.data;
   } catch (error) {
@@ -27,7 +30,10 @@ export async function fetchSinglePost(id) {
         "X-Noroff-API-Key": NOROFF_API_KEY,
       },
     };
-    const response = await fetch(`${SOCIAL_URL}/posts/${id}`, fetchOptions);
+    const response = await fetch(
+      `${SOCIAL_URL}/posts/${id}?_author=true`,
+      fetchOptions,
+    );
     const json = await response.json();
     return json.data;
   } catch (error) {
