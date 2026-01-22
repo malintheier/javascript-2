@@ -23,11 +23,15 @@ export function initLoginForm() {
 export function initRegisterForm() {
   const registerForm = document.querySelector("#registerForm");
 
-  function onRegisterFormSubmit(event) {
+  async function onRegisterFormSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const formFields = Object.fromEntries(formData);
-    registerUser(formFields);
+    const result = await registerUser(formFields);
+
+    if (result && result.data) {
+      window.location.href = "../pages/login.html";
+    }
   }
 
   if (registerForm) {
