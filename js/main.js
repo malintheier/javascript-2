@@ -1,4 +1,4 @@
-import { fetchPosts, createPost } from "./api/posts.js";
+import { fetchPosts, createPost, updatePost } from "./api/posts.js";
 import { generatePostsHTML } from "./modules/renderPostList.js";
 import { requireAuth } from "./utils/authGuard.js";
 import { showModal, showMessage } from "./utils/showMessage.js";
@@ -67,6 +67,57 @@ function openCreatePostModal() {
   });
 }
 
+function openEditPostModal(post) {
+  const formHTML = `
+    <form id="editPostForm" class="post-form">
+      <label for="editTitle">Title:</label>
+      <input type="text" id="editTitle" name="title" required class="form-input" value="${post.title}" />
+      
+      <label for="editBody">Body:</label>
+      <textarea id="editBody" name="body" required class="form-textarea">${post.body}</textarea>
+      
+      <label for="editMediaUrl">Media URL (optional):</label>
+      <input type="url" id="editMediaUrl" name="mediaUrl" class="form-input" value="${post.media?.url || ""}" />
+      
+      <label for="editMediaAlt">Media Alt Text (optional):</label>
+      <input type="text" id="editMediaAlt" name="mediaAlt" class="form-input" value="${post.media?.alt || ""}" />
+      
+      <button type="submit" class="btn btn-primary">Update Post</button>
+    </form>
+  `;
+
+  const modal = showModal("Edit Post", formHTML);
+
+  const form = modal.querySelector("#editPostForm");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const postData = {
+      title: formData.get("title"),
+      body: formData.get("body"),
+    };
+
+    const mediaUrl = formData.get("mediaUrl");
+    if (mediaUrl) {
+      postData.media = {
+        url: mediaUrl,
+        alt: formData.get("mediaAlt") || "",
+      };
+    }
+
+    const result = await updatePost(post.id, postData);
+
+    if (result) {
+      showMessage("Post updated successfully!", "success");
+      modal.remove();
+      loadFeed();
+    } else {
+      showMessage("Failed to update post", "error");
+    }
+  });
+}
+
 async function main() {
   if (!requireAuth()) return;
 
@@ -76,6 +127,10 @@ async function main() {
   if (createBtn) {
     createBtn.addEventListener("click", openCreatePostModal);
   }
+
+  window.addEventListener("editPost", (e) => {
+    openEditPostModal(e.detail);
+  });
 }
 
 main();

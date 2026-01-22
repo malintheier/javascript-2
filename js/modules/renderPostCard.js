@@ -1,7 +1,8 @@
 import { fetchSinglePost } from "../api/posts.js";
 import { getParam } from "../utils/getParam.js";
+import { getUser } from "../utils/storage.js";
 
-export function renderPostCard(post) {
+export function renderPostCard(post, showEditButton = false) {
   const postContainer = document.createElement("div");
   postContainer.classList.add("post-card");
   postContainer.style.cursor = "pointer";
@@ -23,6 +24,21 @@ export function renderPostCard(post) {
   }
 
   postContainer.append(title, body, author);
+
+  if (showEditButton) {
+    const currentUser = getUser();
+    if (currentUser && post.author?.name === currentUser.name) {
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Edit Post";
+      editBtn.classList.add("btn-edit");
+      editBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const event = new CustomEvent("editPost", { detail: post });
+        window.dispatchEvent(event);
+      });
+      postContainer.append(editBtn);
+    }
+  }
 
   postContainer.addEventListener("click", () => {
     window.location.href = `post.html?id=${post.id}`;
