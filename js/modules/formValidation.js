@@ -4,11 +4,15 @@ import { registerUser } from "../api/auth.js";
 export function initLoginForm() {
   const loginForm = document.querySelector("#loginForm");
 
-  function onLoginFormSubmit(event) {
+  async function onLoginFormSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const formFields = Object.fromEntries(formData);
-    loginUser(formFields);
+    const result = await loginUser(formFields);
+
+    if (result && result.data) {
+      window.location.href = "../pages/feed.html";
+    }
   }
 
   if (loginForm) {
