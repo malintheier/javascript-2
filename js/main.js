@@ -144,7 +144,6 @@ async function main() {
       if (result) {
         showMessage("Post deleted successfully!", "success");
 
-        // If on feed page, reload feed; otherwise go to feed page
         if (displayContainer) {
           loadFeed();
         } else {
