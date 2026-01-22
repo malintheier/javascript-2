@@ -45,7 +45,6 @@ export async function createPost(postData) {
   try {
     const accessToken = getFromLocalStorage("accessToken");
 
-    // Automatically add Pulse2026 tag
     if (!postData.tags) {
       postData.tags = [];
     }
@@ -74,7 +73,6 @@ export async function updatePost(id, postData) {
   try {
     const accessToken = getFromLocalStorage("accessToken");
 
-    // Ensure Pulse2026 tag remains
     if (!postData.tags) {
       postData.tags = [];
     }

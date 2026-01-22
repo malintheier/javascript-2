@@ -3,7 +3,6 @@ import { getParam } from "../utils/getParam.js";
 import { getUser } from "../utils/storage.js";
 
 export function renderPostCard(post, showEditButton = false) {
-  const postContainer = document.createElement("div");
   postContainer.classList.add("post-card");
   postContainer.style.cursor = "pointer";
 
@@ -27,7 +26,14 @@ export function renderPostCard(post, showEditButton = false) {
 
   if (showEditButton) {
     const currentUser = getUser();
-    if (currentUser && post.author?.name === currentUser.name) {
+
+    const isOwner =
+      currentUser &&
+      post.author &&
+      (post.author.name === currentUser.name ||
+        post.author.email === currentUser.email);
+
+    if (isOwner) {
       const editBtn = document.createElement("button");
       editBtn.textContent = "Edit Post";
       editBtn.classList.add("btn-edit");
@@ -59,7 +65,7 @@ export async function displaySinglePost() {
   const post = await fetchSinglePost(postId);
 
   if (post) {
-    const postCard = renderPostCard(post);
+    const postCard = renderPostCard(post, true);
     postCard.style.cursor = "default";
     postCard.onclick = null;
     postContainer.append(postCard);

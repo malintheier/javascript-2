@@ -8,7 +8,6 @@ const displayContainer = document.getElementById("displayContainer");
 export async function loadFeed() {
   const posts = await fetchPosts();
 
-  // Filter posts to only show those with "Pulse2026" tag
   const filteredPosts = posts.filter(
     (post) => post.tags && post.tags.includes("Pulse2026"),
   );
