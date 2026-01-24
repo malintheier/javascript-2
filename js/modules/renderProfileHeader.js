@@ -1,4 +1,8 @@
-export function renderProfileHeader(profile) {
+export function renderProfileHeader(
+  profile,
+  isOwnProfile = false,
+  currentUser = null,
+) {
   const container = document.createElement("div");
   container.className = "profile-header";
 
@@ -11,8 +15,31 @@ export function renderProfileHeader(profile) {
   name.textContent = profile.name;
   name.className = "profile-name";
 
+  const counts = document.createElement("div");
+  counts.className = "profile-counts";
+  counts.innerHTML = `
+    <span>Posts: ${profile._count?.posts || 0}</span>
+    <span id="followerCount">Followers: ${profile._count?.followers || 0}</span>
+    <span>Following: ${profile._count?.following || 0}</span>
+  `;
+
   container.appendChild(avatar);
   container.appendChild(name);
+  container.appendChild(counts);
+
+  if (!isOwnProfile && currentUser) {
+    const isFollowing =
+      Array.isArray(profile.followers) &&
+      profile.followers.some((f) => f.name === currentUser.name);
+
+    const followBtn = document.createElement("button");
+    followBtn.id = "followBtn";
+    followBtn.className = isFollowing ? "btn-unfollow" : "btn-follow";
+    followBtn.textContent = isFollowing ? "Unfollow" : "Follow";
+    followBtn.dataset.following = isFollowing.toString();
+
+    container.appendChild(followBtn);
+  }
 
   return container;
 }

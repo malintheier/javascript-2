@@ -125,10 +125,12 @@ function openEditPostModal(post) {
 async function loadProfile() {
   const { getUser } = await import("./utils/storage.js");
   const { getParam } = await import("./utils/getParam.js");
-  const { fetchProfile } = await import("./api/profiles.js");
+  const { fetchProfile, followUser, unfollowUser } =
+    await import("./api/profiles.js");
   const { renderProfileHeader } =
     await import("./modules/renderProfileHeader.js");
   const { generatePostsHTML } = await import("./modules/renderPostList.js");
+  const { showMessage } = await import("./utils/showMessage.js");
 
   const usernameParam = getParam("name");
   const user = getUser();
@@ -139,12 +141,52 @@ async function loadProfile() {
   const profile = await fetchProfile(username);
   if (!profile) return;
 
+  const isOwnProfile = user && profile.name === user.name;
+
   const headerContainer = document.getElementById("profileHeader");
   const postsContainer = document.getElementById("profilePosts");
 
   if (headerContainer) {
-    const header = renderProfileHeader(profile);
+    const header = renderProfileHeader(profile, isOwnProfile, user);
     headerContainer.appendChild(header);
+
+    // Handle follow/unfollow button
+    const followBtn = document.getElementById("followBtn");
+    if (followBtn) {
+      followBtn.addEventListener("click", async () => {
+        const isFollowing = followBtn.dataset.following === "true";
+
+        const result = isFollowing
+          ? await unfollowUser(profile.name)
+          : await followUser(profile.name);
+
+        if (result) {
+          // Update button state
+          followBtn.dataset.following = (!isFollowing).toString();
+          followBtn.textContent = !isFollowing ? "Unfollow" : "Follow";
+          followBtn.className = !isFollowing ? "btn-unfollow" : "btn-follow";
+
+          // Update follower count
+          const followerCountEl = document.getElementById("followerCount");
+          if (followerCountEl) {
+            const currentCount = profile._count?.followers || 0;
+            const newCount = isFollowing ? currentCount - 1 : currentCount + 1;
+            followerCountEl.textContent = `Followers: ${newCount}`;
+            profile._count.followers = newCount;
+          }
+
+          showMessage(
+            isFollowing ? "Unfollowed successfully!" : "Followed successfully!",
+            "success",
+          );
+        } else {
+          showMessage(
+            isFollowing ? "Failed to unfollow" : "Failed to follow",
+            "error",
+          );
+        }
+      });
+    }
   }
 
   if (postsContainer && profile.posts) {
