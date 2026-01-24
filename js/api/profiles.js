@@ -5,7 +5,7 @@ export async function fetchProfile(username) {
   const accessToken = getFromLocalStorage("accessToken");
 
   const response = await fetch(
-    `${SOCIAL_URL}/profiles/${username}?_posts=true`,
+    `${SOCIAL_URL}/profiles/${username}?_posts=true&_author=true`,
     {
       headers: {
         "Content-Type": "application/json",

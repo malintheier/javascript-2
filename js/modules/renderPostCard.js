@@ -13,8 +13,17 @@ export function renderPostCard(post, showEditButton = false) {
   const body = document.createElement("p");
   body.textContent = post.body;
 
-  const author = document.createElement("p");
-  author.textContent = `Author: ${post.author?.name || "Unknown"}`;
+  const authorContainer = document.createElement("p");
+  authorContainer.innerHTML = "Author: ";
+
+  const authorLink = document.createElement("a");
+  authorLink.textContent = post.author?.name || "Unknown";
+  authorLink.href = `profile.html?name=${post.author?.name || ""}`;
+  authorLink.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+
+  authorContainer.appendChild(authorLink);
 
   if (post.media?.url) {
     const image = document.createElement("img");
@@ -23,7 +32,7 @@ export function renderPostCard(post, showEditButton = false) {
     postContainer.append(image);
   }
 
-  postContainer.append(title, body, author);
+  postContainer.append(title, body, authorContainer);
 
   if (showEditButton) {
     const currentUser = getUser();

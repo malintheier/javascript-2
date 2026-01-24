@@ -124,15 +124,19 @@ function openEditPostModal(post) {
 
 async function loadProfile() {
   const { getUser } = await import("./utils/storage.js");
+  const { getParam } = await import("./utils/getParam.js");
   const { fetchProfile } = await import("./api/profiles.js");
   const { renderProfileHeader } =
     await import("./modules/renderProfileHeader.js");
   const { generatePostsHTML } = await import("./modules/renderPostList.js");
 
+  const usernameParam = getParam("name");
   const user = getUser();
-  if (!user) return;
 
-  const profile = await fetchProfile(user.name);
+  const username = usernameParam || user?.name;
+  if (!username) return;
+
+  const profile = await fetchProfile(username);
   if (!profile) return;
 
   const headerContainer = document.getElementById("profileHeader");
@@ -144,7 +148,16 @@ async function loadProfile() {
   }
 
   if (postsContainer && profile.posts) {
-    generatePostsHTML(profile.posts, postsContainer);
+    const postsWithAuthor = profile.posts.map((post) => ({
+      ...post,
+      author: post.author || {
+        name: profile.name,
+        email: profile.email,
+        avatar: profile.avatar,
+        banner: profile.banner,
+      },
+    }));
+    generatePostsHTML(postsWithAuthor, postsContainer);
   }
 }
 
