@@ -125,12 +125,12 @@ function openEditPostModal(post) {
 async function loadProfile() {
   const { getUser } = await import("./utils/storage.js");
   const { getParam } = await import("./utils/getParam.js");
-  const { fetchProfile, followUser, unfollowUser } =
+  const { fetchProfile, followUser, unfollowUser, updateProfileBio } =
     await import("./api/profiles.js");
   const { renderProfileHeader } =
     await import("./modules/renderProfileHeader.js");
   const { generatePostsHTML } = await import("./modules/renderPostList.js");
-  const { showMessage } = await import("./utils/showMessage.js");
+  const { showMessage, showModal } = await import("./utils/showMessage.js");
 
   const usernameParam = getParam("name");
   const user = getUser();
@@ -185,6 +185,44 @@ async function loadProfile() {
             "error",
           );
         }
+      });
+    }
+
+    const editBioBtn = document.getElementById("editBioBtn");
+    if (editBioBtn) {
+      editBioBtn.addEventListener("click", () => {
+        const formHTML = `
+          <form id="editBioForm" class="bio-form">
+            <label for="bioText">Bio:</label>
+            <textarea id="bioText" name="bio" rows="4" maxlength="160" class="form-textarea">${profile.bio || ""}</textarea>
+            <button type="submit" class="btn btn-primary">Save Bio</button>
+          </form>
+        `;
+
+        const modal = showModal("Edit Bio", formHTML);
+
+        const form = modal.querySelector("#editBioForm");
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const formData = new FormData(form);
+          const newBio = formData.get("bio");
+
+          const result = await updateProfileBio(user.name, newBio);
+
+          if (result) {
+            showMessage("Bio updated successfully!", "success");
+            modal.remove();
+
+            const bioEl = document.getElementById("profileBio");
+            if (bioEl) {
+              bioEl.textContent = newBio || "No bio yet.";
+              profile.bio = newBio;
+            }
+          } else {
+            showMessage("Failed to update bio", "error");
+          }
+        });
       });
     }
   }

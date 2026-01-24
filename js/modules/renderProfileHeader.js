@@ -15,6 +15,11 @@ export function renderProfileHeader(
   name.textContent = profile.name;
   name.className = "profile-name";
 
+  const bio = document.createElement("p");
+  bio.id = "profileBio";
+  bio.textContent = profile.bio || "No bio yet.";
+  bio.className = "profile-bio";
+
   const counts = document.createElement("div");
   counts.className = "profile-counts";
   counts.innerHTML = `
@@ -25,7 +30,16 @@ export function renderProfileHeader(
 
   container.appendChild(avatar);
   container.appendChild(name);
+  container.appendChild(bio);
   container.appendChild(counts);
+
+  if (isOwnProfile) {
+    const editBioBtn = document.createElement("button");
+    editBioBtn.id = "editBioBtn";
+    editBioBtn.className = "btn-edit-bio";
+    editBioBtn.textContent = "Edit Bio";
+    container.appendChild(editBioBtn);
+  }
 
   if (!isOwnProfile && currentUser) {
     const isFollowing =
