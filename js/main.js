@@ -122,11 +122,42 @@ function openEditPostModal(post) {
   });
 }
 
+async function loadProfile() {
+  const { getUser } = await import("./utils/storage.js");
+  const { fetchProfile } = await import("./api/profiles.js");
+  const { renderProfileHeader } =
+    await import("./modules/renderProfileHeader.js");
+  const { generatePostsHTML } = await import("./modules/renderPostList.js");
+
+  const user = getUser();
+  if (!user) return;
+
+  const profile = await fetchProfile(user.name);
+  if (!profile) return;
+
+  const headerContainer = document.getElementById("profileHeader");
+  const postsContainer = document.getElementById("profilePosts");
+
+  if (headerContainer) {
+    const header = renderProfileHeader(profile);
+    headerContainer.appendChild(header);
+  }
+
+  if (postsContainer && profile.posts) {
+    generatePostsHTML(profile.posts, postsContainer);
+  }
+}
+
 async function main() {
   if (!requireAuth()) return;
 
   if (displayContainer) {
     await loadFeed();
+  }
+
+  const profileHeader = document.getElementById("profileHeader");
+  if (profileHeader) {
+    await loadProfile();
   }
 
   const createBtn = document.getElementById("createPostBtn");
