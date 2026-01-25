@@ -1,4 +1,11 @@
-import { fetchPosts, createPost, updatePost, deletePost } from "./api/posts.js";
+import {
+  fetchPosts,
+  createPost,
+  updatePost,
+  deletePost,
+  searchPosts,
+} from "./api/posts.js";
+import { searchProfiles } from "./api/profiles.js";
 import { generatePostsHTML } from "./modules/renderPostList.js";
 import { requireAuth } from "./utils/authGuard.js";
 import { showModal, showMessage } from "./utils/showMessage.js";
@@ -13,6 +20,49 @@ export async function loadFeed() {
   );
 
   generatePostsHTML(filteredPosts, displayContainer);
+}
+
+async function handleSearch(query, searchType) {
+  if (!query.trim()) {
+    loadFeed();
+    return;
+  }
+
+  if (searchType === "posts") {
+    const results = await searchPosts(query);
+    const filteredResults = results.filter(
+      (post) => post.tags && post.tags.includes("Pulse2026"),
+    );
+    generatePostsHTML(filteredResults, displayContainer);
+  } else if (searchType === "profiles") {
+    const profiles = await searchProfiles(query);
+    displayProfiles(profiles);
+  }
+}
+
+function displayProfiles(profiles) {
+  displayContainer.innerHTML = "";
+
+  if (profiles.length === 0) {
+    displayContainer.innerHTML = "<p>No profiles found.</p>";
+    return;
+  }
+
+  profiles.forEach((profile) => {
+    const profileCard = document.createElement("div");
+    profileCard.className = "profile-card";
+    profileCard.innerHTML = `
+      <div class="profile-card-header">
+        ${profile.avatar?.url ? `<img src="${profile.avatar.url}" alt="${profile.avatar.alt || profile.name}" class="profile-avatar" />` : ""}
+        <div>
+          <h3><a href="profile.html?name=${profile.name}">${profile.name}</a></h3>
+          ${profile.bio ? `<p>${profile.bio}</p>` : ""}
+        </div>
+      </div>
+      ${profile.banner?.url ? `<img src="${profile.banner.url}" alt="${profile.banner.alt || ""}" class="profile-banner" />` : ""}
+    `;
+    displayContainer.append(profileCard);
+  });
 }
 
 function openCreatePostModal() {
@@ -256,6 +306,38 @@ async function main() {
   const createBtn = document.getElementById("createPostBtn");
   if (createBtn) {
     createBtn.addEventListener("click", openCreatePostModal);
+  }
+
+  const searchInput = document.getElementById("searchInput");
+  const searchTypeRadios = document.querySelectorAll(
+    'input[name="searchType"]',
+  );
+
+  if (searchInput && searchTypeRadios.length > 0) {
+    let searchTimeout;
+
+    searchInput.addEventListener("input", (e) => {
+      clearTimeout(searchTimeout);
+      const query = e.target.value;
+      const searchType = document.querySelector(
+        'input[name="searchType"]:checked',
+      ).value;
+
+      searchTimeout = setTimeout(() => {
+        handleSearch(query, searchType);
+      }, 300);
+    });
+
+    searchTypeRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        const query = searchInput.value;
+        if (query.trim()) {
+          handleSearch(query, radio.value);
+        } else {
+          loadFeed();
+        }
+      });
+    });
   }
 
   window.addEventListener("editPost", (e) => {

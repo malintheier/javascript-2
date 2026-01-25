@@ -16,6 +16,24 @@
       <button id="createPostBtn">Create Post</button>
     </header>
     <main>
+      <div class="search-container">
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search posts by title/content or profiles by name/bio..."
+          class="search-input"
+        />
+        <div class="search-type-toggle">
+          <label>
+            <input type="radio" name="searchType" value="posts" checked />
+            Posts
+          </label>
+          <label>
+            <input type="radio" name="searchType" value="profiles" />
+            Profiles
+          </label>
+        </div>
+      </div>
       <div id="displayContainer" class="display-container"></div>
     </main>
     <footer></footer>

@@ -114,3 +114,24 @@ export async function deletePost(id) {
     return false;
   }
 }
+
+export async function searchPosts(query) {
+  try {
+    const accessToken = getFromLocalStorage("accessToken");
+    const fetchOptions = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": NOROFF_API_KEY,
+      },
+    };
+    const response = await fetch(
+      `${SOCIAL_URL}/posts/search?q=${encodeURIComponent(query)}&_author=true`,
+      fetchOptions,
+    );
+    const json = await response.json();
+    return json.data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
