@@ -125,7 +125,7 @@ export async function searchPosts(query) {
       },
     };
     const response = await fetch(
-      `${SOCIAL_URL}/posts/search?q=${encodeURIComponent(query)}&_author=true&_tag=Pulse2026`,
+      `${SOCIAL_URL}/posts/search?q=${encodeURIComponent(query)}&_author=true`,
       fetchOptions,
     );
     const json = await response.json();
