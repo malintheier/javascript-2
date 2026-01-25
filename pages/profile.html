@@ -14,11 +14,56 @@
     <title>Profile</title>
   </head>
   <body>
-    <header></header>
-    <main>
-      <div id="profileHeader"></div>
-      <div id="profilePosts"></div>
-    </main>
-    <footer></footer>
+    <header class="sidebar">
+      <div class="sidebar-logo">
+        <img src="../assets/logo.png" alt="Pulse Logo" />
+      </div>
+      <nav>
+        <ul class="sidebar-nav">
+          <li>
+            <a href="feed.html">Feed</a>
+          </li>
+          <li>
+            <button id="toggleSearchBtn" class="nav-button">Search</button>
+          </li>
+          <li>
+            <button id="createPostBtn" class="nav-button">Create Post</button>
+          </li>
+          <li>
+            <a href="profile.html" id="profileLink" class="active">Profile</a>
+          </li>
+          <li>
+            <button id="logoutBtn" class="nav-button logout-btn">
+              Log Out
+            </button>
+          </li>
+        </ul>
+      </nav>
+      <div id="sidebarSearchContainer" class="sidebar-search-expanded">
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search..."
+          class="sidebar-search-input"
+        />
+        <div class="search-type-toggle">
+          <label>
+            <input type="radio" name="searchType" value="posts" checked />
+            Posts
+          </label>
+          <label>
+            <input type="radio" name="searchType" value="profiles" />
+            Profiles
+          </label>
+        </div>
+      </div>
+    </header>
+    <div class="main-wrapper">
+      <main>
+        <div id="profileHeader"></div>
+        <div id="profilePosts"></div>
+      </main>
+      <footer></footer>
+    </div>
   </body>
 </html>
