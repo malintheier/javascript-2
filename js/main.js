@@ -200,7 +200,6 @@ async function loadProfile() {
     const header = renderProfileHeader(profile, isOwnProfile, user);
     headerContainer.appendChild(header);
 
-    // Handle follow/unfollow button
     const followBtn = document.getElementById("followBtn");
     if (followBtn) {
       followBtn.addEventListener("click", async () => {
@@ -211,12 +210,10 @@ async function loadProfile() {
           : await followUser(profile.name);
 
         if (result) {
-          // Update button state
           followBtn.dataset.following = (!isFollowing).toString();
           followBtn.textContent = !isFollowing ? "Unfollow" : "Follow";
           followBtn.className = !isFollowing ? "btn-unfollow" : "btn-follow";
 
-          // Update follower count
           const followerCountEl = document.getElementById("followerCount");
           if (followerCountEl) {
             const currentCount = profile._count?.followers || 0;
