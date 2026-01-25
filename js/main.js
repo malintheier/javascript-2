@@ -30,10 +30,7 @@ async function handleSearch(query, searchType) {
 
   if (searchType === "posts") {
     const results = await searchPosts(query);
-    const filteredResults = results.filter(
-      (post) => post.tags && post.tags.includes("Pulse2026"),
-    );
-    generatePostsHTML(filteredResults, displayContainer);
+    generatePostsHTML(results, displayContainer);
   } else if (searchType === "profiles") {
     const profiles = await searchProfiles(query);
     displayProfiles(profiles);
