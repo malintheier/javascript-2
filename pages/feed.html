@@ -13,27 +13,27 @@
     <title>Feed</title>
   </head>
   <body>
-    <header class="sidebar">
+    <header class="sidebar desktop-header">
       <div class="sidebar-logo">
         <img src="../assets/logo.png" alt="Pulse Logo" />
       </div>
       <nav>
         <ul class="sidebar-nav">
           <li>
-            <a href="feed.html" class="active">Feed</a>
+            <a href="feed.html" class="active">Feed (Desktop)</a>
           </li>
           <li>
-            <button id="toggleSearchBtn" class="nav-button">Search</button>
+            <button id="toggleSearchBtn" class="nav-button">Search (Desktop)</button>
           </li>
           <li>
-            <button id="createPostBtn" class="nav-button">Create Post</button>
+            <button id="createPostBtn" class="nav-button">Create Post (Desktop)</button>
           </li>
           <li>
-            <a href="profile.html" id="profileLink">Profile</a>
+            <a href="profile.html" id="profileLink">Profile (Desktop)</a>
           </li>
           <li>
             <button id="logoutBtn" class="nav-button logout-btn">
-              Log Out
+              Log Out (Desktop)
             </button>
           </li>
         </ul>
@@ -56,6 +56,64 @@
           </label>
         </div>
       </div>
+    </header>
+
+    <header class="mobile-header-top">
+      <button id="mobileCreateBtn" class="mobile-btn-left">
+        Opprett
+      </button>
+      <button id="mobileLogoutBtn" class="mobile-btn-right">
+        Logg ut
+      </button>
+    </header>
+    <nav class="mobile-nav-bottom">
+      <a href="feed.html" class="mobile-nav-item active">
+        Hjem
+      </a>
+      <button id="mobileSearchBtn" class="mobile-nav-item">
+        Søk
+      </button>
+      <a href="profile.html" class="mobile-nav-item">
+        Konto
+      </a>
+    </nav>
+    <div id="mobileSearchOverlay" class="mobile-search-overlay">
+      <button id="mobileSearchClose" class="mobile-search-close">
+        Lukk
+      </button>
+      <input
+        type="search"
+        id="mobileSearchInput"
+        placeholder="Søk..."
+        class="mobile-search-input"
+      />
+      <div class="mobile-search-type-toggle">
+        <label>
+          <input type="radio" name="mobileSearchType" value="posts" checked />
+          Innlegg
+        </label>
+        <label>
+          <input type="radio" name="mobileSearchType" value="profiles" />
+          Profiler
+        </label>
+      </div>
+    </div>
+    <div id="mobileCreateOverlay" class="mobile-create-overlay">
+      <button id="mobileCreateClose" class="mobile-create-close">
+        Lukk
+      </button>
+      <h2>Opprett innlegg</h2>
+      <p>Her kommer opprett-skjema</p>
+    </div>
+    <div id="mobileLogoutOverlay" class="mobile-logout-overlay">
+      <div class="mobile-logout-dialog">
+        <p>Are you sure you want to log out?</p>
+        <a href="login.html" class="mobile-logout-confirm">Yes, log out</a>
+        <button id="mobileLogoutCancel" class="mobile-logout-cancel">
+          Cancel
+        </button>
+      </div>
+    </div>
     </header>
     <div class="main-wrapper">
       <main>
