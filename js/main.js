@@ -6,9 +6,17 @@ import {
   searchPosts,
 } from "./api/posts.js";
 import { searchProfiles } from "./api/profiles.js";
-import { generatePostsHTML } from "./modules/renderPostList.js";
+import {
+  generatePostsHTML,
+  displayProfiles,
+} from "./modules/renderPostList.js";
 import { requireAuth } from "./utils/authGuard.js";
-import { showModal, showMessage } from "./utils/showMessage.js";
+import {
+  showModal,
+  showMessage,
+  openCreatePostModal,
+  openEditPostModal,
+} from "./utils/showMessage.js";
 
 const displayContainer = document.getElementById("displayContainer");
 
@@ -36,178 +44,8 @@ async function handleSearch(query, searchType) {
     generatePostsHTML(filteredResults, displayContainer);
   } else if (searchType === "profiles") {
     const profiles = await searchProfiles(query);
-    displayProfiles(profiles);
+    displayProfiles(profiles, displayContainer);
   }
-}
-
-function displayProfiles(profiles) {
-  displayContainer.innerHTML = "";
-
-  if (profiles.length === 0) {
-    displayContainer.innerHTML = "<p>No profiles found.</p>";
-    return;
-  }
-
-  profiles.forEach((profile) => {
-    const profileCard = document.createElement("div");
-    profileCard.className = "profile-card";
-    profileCard.innerHTML = `
-      <div class="profile-card-header">
-        ${profile.avatar?.url ? `<img src="${profile.avatar.url}" alt="${profile.avatar.alt || profile.name}" class="profile-avatar" />` : ""}
-        <div>
-          <h3><a href="profile.html?name=${profile.name}">${profile.name}</a></h3>
-          ${profile.bio ? `<p>${profile.bio}</p>` : ""}
-        </div>
-      </div>
-      ${profile.banner?.url ? `<img src="${profile.banner.url}" alt="${profile.banner.alt || ""}" class="profile-banner" />` : ""}
-    `;
-    displayContainer.append(profileCard);
-  });
-}
-
-function openCreatePostModal() {
-  const formHTML = `
-    <form id="createPostForm" class="post-form">
-      <label for="title">Title:</label>
-      <input type="text" id="title" name="title" required class="form-input" />
-      
-      <label for="body">Body: <span id="createCharCount" class="char-count">0/280</span></label>
-      <textarea id="body" name="body" required class="form-textarea" maxlength="280"></textarea>
-      
-      <label for="mediaUrl">Media URL (optional):</label>
-      <input type="url" id="mediaUrl" name="mediaUrl" class="form-input" />
-      
-      <label for="mediaAlt">Media Alt Text (optional):</label>
-      <input type="text" id="mediaAlt" name="mediaAlt" class="form-input" />
-      
-      <button type="submit" class="btn btn-primary">Create Post</button>
-    </form>
-  `;
-
-  const modal = showModal("Create New Post", formHTML);
-
-  const form = modal.querySelector("#createPostForm");
-  const bodyTextarea = form.querySelector("#body");
-  const charCount = modal.querySelector("#createCharCount");
-
-  bodyTextarea.addEventListener("input", () => {
-    const length = bodyTextarea.value.length;
-    charCount.textContent = `${length}/280`;
-    charCount.style.color = length > 280 ? "red" : "";
-  });
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-    const body = formData.get("body");
-
-    if (body.length > 280) {
-      showMessage("Body cannot be greater than 280 characters", "error");
-      return;
-    }
-
-    const postData = {
-      title: formData.get("title"),
-      body: body,
-    };
-
-    const mediaUrl = formData.get("mediaUrl");
-    if (mediaUrl) {
-      postData.media = {
-        url: mediaUrl,
-        alt: formData.get("mediaAlt") || "",
-      };
-    }
-
-    const result = await createPost(postData);
-
-    if (result) {
-      showMessage("Post created successfully!", "success");
-      modal.remove();
-      loadFeed();
-    } else {
-      showMessage("Failed to create post", "error");
-    }
-  });
-}
-
-function openEditPostModal(post) {
-  const formHTML = `
-    <form id="editPostForm" class="post-form">
-      <label for="editTitle">Title:</label>
-      <input type="text" id="editTitle" name="title" required class="form-input" value="${post.title}" />
-      
-      <label for="editBody">Body: <span id="editCharCount" class="char-count">0/280</span></label>
-      <textarea id="editBody" name="body" required class="form-textarea" maxlength="280">${post.body}</textarea>
-      
-      <label for="editMediaUrl">Media URL (optional):</label>
-      <input type="url" id="editMediaUrl" name="mediaUrl" class="form-input" value="${post.media?.url || ""}" />
-      
-      <label for="editMediaAlt">Media Alt Text (optional):</label>
-      <input type="text" id="editMediaAlt" name="mediaAlt" class="form-input" value="${post.media?.alt || ""}" />
-      
-      <button type="submit" class="btn btn-primary">Update Post</button>
-    </form>
-  `;
-
-  const modal = showModal("Edit Post", formHTML);
-
-  const form = modal.querySelector("#editPostForm");
-  const bodyTextarea = form.querySelector("#editBody");
-  const charCount = modal.querySelector("#editCharCount");
-
-  charCount.textContent = `${bodyTextarea.value.length}/280`;
-
-  bodyTextarea.addEventListener("input", () => {
-    const length = bodyTextarea.value.length;
-    charCount.textContent = `${length}/280`;
-    charCount.style.color = length > 280 ? "red" : "";
-  });
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-    const body = formData.get("body");
-
-    if (body.length > 280) {
-      showMessage("Body cannot be greater than 280 characters", "error");
-      return;
-    }
-
-    const postData = {
-      title: formData.get("title"),
-      body: body,
-    };
-
-    const mediaUrl = formData.get("mediaUrl");
-    if (mediaUrl) {
-      postData.media = {
-        url: mediaUrl,
-        alt: formData.get("mediaAlt") || "",
-      };
-    }
-
-    try {
-      const result = await updatePost(post.id, postData);
-
-      if (result) {
-        showMessage("Post updated successfully!", "success");
-        modal.remove();
-
-        if (displayContainer) {
-          loadFeed();
-        } else {
-          location.reload();
-        }
-      } else {
-        showMessage("Failed to update post", "error");
-      }
-    } catch (error) {
-      showMessage(error.message || "Failed to update post", "error");
-    }
-  });
 }
 
 async function loadProfile() {
@@ -340,7 +178,9 @@ async function main() {
 
   const createBtn = document.getElementById("createPostBtn");
   if (createBtn) {
-    createBtn.addEventListener("click", openCreatePostModal);
+    createBtn.addEventListener("click", () => {
+      openCreatePostModal(createPost, loadFeed);
+    });
   }
 
   const searchInput = document.getElementById("searchInput");
@@ -376,7 +216,14 @@ async function main() {
   }
 
   window.addEventListener("editPost", (e) => {
-    openEditPostModal(e.detail);
+    const onSuccess = () => {
+      if (displayContainer) {
+        loadFeed();
+      } else {
+        location.reload();
+      }
+    };
+    openEditPostModal(e.detail, updatePost, onSuccess);
   });
 
   window.addEventListener("deletePost", async (e) => {
