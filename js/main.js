@@ -71,8 +71,8 @@ function openCreatePostModal() {
       <label for="title">Title:</label>
       <input type="text" id="title" name="title" required class="form-input" />
       
-      <label for="body">Body:</label>
-      <textarea id="body" name="body" required class="form-textarea"></textarea>
+      <label for="body">Body: <span id="createCharCount" class="char-count">0/280</span></label>
+      <textarea id="body" name="body" required class="form-textarea" maxlength="280"></textarea>
       
       <label for="mediaUrl">Media URL (optional):</label>
       <input type="url" id="mediaUrl" name="mediaUrl" class="form-input" />
@@ -87,13 +87,29 @@ function openCreatePostModal() {
   const modal = showModal("Create New Post", formHTML);
 
   const form = modal.querySelector("#createPostForm");
+  const bodyTextarea = form.querySelector("#body");
+  const charCount = modal.querySelector("#createCharCount");
+
+  bodyTextarea.addEventListener("input", () => {
+    const length = bodyTextarea.value.length;
+    charCount.textContent = `${length}/280`;
+    charCount.style.color = length > 280 ? "red" : "";
+  });
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const formData = new FormData(form);
+    const body = formData.get("body");
+
+    if (body.length > 280) {
+      showMessage("Body cannot be greater than 280 characters", "error");
+      return;
+    }
+
     const postData = {
       title: formData.get("title"),
-      body: formData.get("body"),
+      body: body,
     };
 
     const mediaUrl = formData.get("mediaUrl");
@@ -122,8 +138,8 @@ function openEditPostModal(post) {
       <label for="editTitle">Title:</label>
       <input type="text" id="editTitle" name="title" required class="form-input" value="${post.title}" />
       
-      <label for="editBody">Body:</label>
-      <textarea id="editBody" name="body" required class="form-textarea">${post.body}</textarea>
+      <label for="editBody">Body: <span id="editCharCount" class="char-count">0/280</span></label>
+      <textarea id="editBody" name="body" required class="form-textarea" maxlength="280">${post.body}</textarea>
       
       <label for="editMediaUrl">Media URL (optional):</label>
       <input type="url" id="editMediaUrl" name="mediaUrl" class="form-input" value="${post.media?.url || ""}" />
@@ -138,13 +154,31 @@ function openEditPostModal(post) {
   const modal = showModal("Edit Post", formHTML);
 
   const form = modal.querySelector("#editPostForm");
+  const bodyTextarea = form.querySelector("#editBody");
+  const charCount = modal.querySelector("#editCharCount");
+
+  charCount.textContent = `${bodyTextarea.value.length}/280`;
+
+  bodyTextarea.addEventListener("input", () => {
+    const length = bodyTextarea.value.length;
+    charCount.textContent = `${length}/280`;
+    charCount.style.color = length > 280 ? "red" : "";
+  });
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const formData = new FormData(form);
+    const body = formData.get("body");
+
+    if (body.length > 280) {
+      showMessage("Body cannot be greater than 280 characters", "error");
+      return;
+    }
+
     const postData = {
       title: formData.get("title"),
-      body: formData.get("body"),
+      body: body,
     };
 
     const mediaUrl = formData.get("mediaUrl");
@@ -155,19 +189,23 @@ function openEditPostModal(post) {
       };
     }
 
-    const result = await updatePost(post.id, postData);
+    try {
+      const result = await updatePost(post.id, postData);
 
-    if (result) {
-      showMessage("Post updated successfully!", "success");
-      modal.remove();
+      if (result) {
+        showMessage("Post updated successfully!", "success");
+        modal.remove();
 
-      if (displayContainer) {
-        loadFeed();
+        if (displayContainer) {
+          loadFeed();
+        } else {
+          location.reload();
+        }
       } else {
-        location.reload();
+        showMessage("Failed to update post", "error");
       }
-    } else {
-      showMessage("Failed to update post", "error");
+    } catch (error) {
+      showMessage(error.message || "Failed to update post", "error");
     }
   });
 }

@@ -17,7 +17,7 @@ export async function fetchPosts() {
     const json = await response.json();
     return json.data;
   } catch (error) {
-    console.log(error);
+    return [];
   }
 }
 
@@ -37,7 +37,7 @@ export async function fetchSinglePost(id) {
     const json = await response.json();
     return json.data;
   } catch (error) {
-    console.log(error);
+    return null;
   }
 }
 
@@ -65,7 +65,7 @@ export async function createPost(postData) {
     const json = await response.json();
     return json.data;
   } catch (error) {
-    console.log(error);
+    return null;
   }
 }
 
@@ -73,11 +73,25 @@ export async function updatePost(id, postData) {
   try {
     const accessToken = getFromLocalStorage("accessToken");
 
-    if (!postData.tags) {
-      postData.tags = [];
+    const updateData = {};
+
+    if (postData.title !== undefined) {
+      updateData.title = postData.title;
     }
-    if (!postData.tags.includes("Pulse2026")) {
-      postData.tags.push("Pulse2026");
+    if (postData.body !== undefined) {
+      updateData.body = postData.body;
+    }
+    if (postData.media !== undefined) {
+      updateData.media = postData.media;
+    }
+    if (postData.tags !== undefined) {
+      updateData.tags = postData.tags;
+    } else {
+      updateData.tags = [];
+    }
+
+    if (!updateData.tags.includes("Pulse2026")) {
+      updateData.tags.push("Pulse2026");
     }
 
     const fetchOptions = {
@@ -87,13 +101,18 @@ export async function updatePost(id, postData) {
         Authorization: `Bearer ${accessToken}`,
         "X-Noroff-API-Key": NOROFF_API_KEY,
       },
-      body: JSON.stringify(postData),
+      body: JSON.stringify(updateData),
     };
     const response = await fetch(`${SOCIAL_URL}/posts/${id}`, fetchOptions);
     const json = await response.json();
+
+    if (!response.ok) {
+      throw new Error(json.errors?.[0]?.message || "Failed to update post");
+    }
+
     return json.data;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 
@@ -110,7 +129,6 @@ export async function deletePost(id) {
     await fetch(`${SOCIAL_URL}/posts/${id}`, fetchOptions);
     return true;
   } catch (error) {
-    console.log(error);
     return false;
   }
 }
@@ -131,7 +149,6 @@ export async function searchPosts(query) {
     const json = await response.json();
     return json.data;
   } catch (error) {
-    console.log(error);
     return [];
   }
 }
