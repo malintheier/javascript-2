@@ -1,0 +1,23 @@
+.desktop-header {
+  display: none;
+}
+
+.mobile-header-top,
+.mobile-nav-bottom {
+  display: flex;
+}
+
+.main-wrapper {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .desktop-header {
+    display: block;
+  }
+
+  .mobile-header-top,
+  .mobile-nav-bottom {
+    display: none;
+  }
+}

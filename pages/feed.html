@@ -13,6 +13,26 @@
     <title>Feed</title>
   </head>
   <body>
+    <header class="mobile-header-top">
+      <button id="mobileCreateBtn" class="mobile-btn-left">
+        <img src="../assets/add.svg" alt="Create" class="mobile-icon" />
+      </button>
+      <button id="mobileLogoutBtn" class="mobile-btn-right">
+        <img src="../assets/sign-out.svg" alt="Logout" class="mobile-icon" />
+      </button>
+    </header>
+    <nav class="mobile-nav-bottom">
+      <a href="feed.html" class="mobile-nav-item">
+        <img src="../assets/home.svg" alt="Home" class="mobile-icon" />
+      </a>
+      <button id="mobileSearchBtn" class="mobile-nav-item">
+        <img src="../assets/search.svg" alt="Search" class="mobile-icon" />
+      </button>
+      <a href="profile.html" class="mobile-nav-item">
+        <img src="" alt="Profile" class="mobile-icon mobile-profile-avatar" />
+      </a>
+    </nav>
+
     <header class="desktop-header">
       <nav class="sidebar">
         <ul>
@@ -61,27 +81,8 @@
           </li>
         </ul>
       </nav>
+    </header>
 
-      <header class="mobile-header-top">
-        <button id="mobileCreateBtn" class="mobile-btn-left">
-          <img src="../assets/add.svg" alt="Create" class="mobile-icon" />
-        </button>
-        <button id="mobileLogoutBtn" class="mobile-btn-right">
-          <img src="../assets/sign-out.svg" alt="Logout" class="mobile-icon" />
-        </button>
-      </header>
-      <nav class="mobile-nav-bottom">
-        <a href="feed.html" class="mobile-nav-item">
-          <img src="../assets/home.svg" alt="Home" class="mobile-icon" />
-        </a>
-        <button id="mobileSearchBtn" class="mobile-nav-item">
-          <img src="../assets/search.svg" alt="Search" class="mobile-icon" />
-        </button>
-        <a href="profile.html" class="mobile-nav-item">
-          <img src="" alt="Profile" class="mobile-icon mobile-profile-avatar" />
-        </a>
-      </nav>
-      
     <div class="main-wrapper">
       <main>
         <div id="displayContainer" class="display-container"></div>
