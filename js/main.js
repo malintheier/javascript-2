@@ -164,6 +164,139 @@ async function loadProfile() {
   }
 }
 
+function setupMobileNavigation() {
+  const mobileSearchBtn = document.getElementById("mobileSearchBtn");
+  const mobileSearchOverlay = document.getElementById("mobileSearchOverlay");
+  const mobileSearchClose = document.getElementById("mobileSearchClose");
+  const mobileSearchInput = document.getElementById("mobileSearchInput");
+  const mobileSearchResults = document.getElementById("mobileSearchResults");
+  const mobileSearchTypeRadios = document.querySelectorAll(
+    'input[name="mobileSearchType"]',
+  );
+
+  if (mobileSearchBtn && mobileSearchOverlay) {
+    mobileSearchBtn.addEventListener("click", () => {
+      mobileSearchOverlay.classList.add("active");
+      mobileSearchInput.focus();
+    });
+
+    mobileSearchClose.addEventListener("click", () => {
+      mobileSearchOverlay.classList.remove("active");
+      mobileSearchInput.value = "";
+      mobileSearchResults.innerHTML = "";
+    });
+
+    let searchTimeout;
+    mobileSearchInput.addEventListener("input", (e) => {
+      clearTimeout(searchTimeout);
+      const query = e.target.value;
+      const searchType = document.querySelector(
+        'input[name="mobileSearchType"]:checked',
+      ).value;
+
+      searchTimeout = setTimeout(async () => {
+        if (!query.trim()) {
+          mobileSearchResults.innerHTML = "";
+          return;
+        }
+
+        if (searchType === "posts") {
+          const results = await searchPosts(query);
+          const filteredResults = results.filter(
+            (post) => post.tags && post.tags.includes("Pulse2026"),
+          );
+          generatePostsHTML(filteredResults, mobileSearchResults);
+        } else if (searchType === "profiles") {
+          const profiles = await searchProfiles(query);
+          displayProfiles(profiles, mobileSearchResults);
+        }
+      }, 300);
+    });
+
+    mobileSearchTypeRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        const query = mobileSearchInput.value;
+        if (query.trim()) {
+          const searchType = radio.value;
+          handleMobileSearch(query, searchType, mobileSearchResults);
+        }
+      });
+    });
+  }
+
+  const mobileCreateBtn = document.getElementById("mobileCreateBtn");
+  const mobileCreateOverlay = document.getElementById("mobileCreateOverlay");
+  const mobileCreateClose = document.getElementById("mobileCreateClose");
+  const mobileCreateForm = document.getElementById("mobileCreateForm");
+
+  if (mobileCreateBtn && mobileCreateOverlay) {
+    mobileCreateBtn.addEventListener("click", () => {
+      mobileCreateOverlay.classList.add("active");
+    });
+
+    mobileCreateClose.addEventListener("click", () => {
+      mobileCreateOverlay.classList.remove("active");
+      mobileCreateForm.reset();
+    });
+
+    mobileCreateForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const title = document.getElementById("mobilePostTitle").value;
+      const body = document.getElementById("mobilePostBody").value;
+
+      if (!title.trim() || !body.trim()) {
+        showMessage("Please fill in all fields", "error");
+        return;
+      }
+
+      const postData = {
+        title: title.trim(),
+        body: body.trim(),
+        tags: ["Pulse2026"],
+      };
+
+      const result = await createPost(postData);
+      if (result) {
+        showMessage("Post created successfully!", "success");
+        mobileCreateOverlay.classList.remove("active");
+        mobileCreateForm.reset();
+        if (displayContainer) {
+          loadFeed();
+        }
+      } else {
+        showMessage("Failed to create post", "error");
+      }
+    });
+  }
+
+  const mobileLogoutBtn = document.getElementById("mobileLogoutBtn");
+  const mobileLogoutOverlay = document.getElementById("mobileLogoutOverlay");
+  const mobileLogoutCancel = document.getElementById("mobileLogoutCancel");
+
+  if (mobileLogoutBtn && mobileLogoutOverlay) {
+    mobileLogoutBtn.addEventListener("click", () => {
+      mobileLogoutOverlay.classList.add("active");
+    });
+
+    mobileLogoutCancel.addEventListener("click", () => {
+      mobileLogoutOverlay.classList.remove("active");
+    });
+  }
+}
+
+async function handleMobileSearch(query, searchType, container) {
+  if (searchType === "posts") {
+    const results = await searchPosts(query);
+    const filteredResults = results.filter(
+      (post) => post.tags && post.tags.includes("Pulse2026"),
+    );
+    generatePostsHTML(filteredResults, container);
+  } else if (searchType === "profiles") {
+    const profiles = await searchProfiles(query);
+    displayProfiles(profiles, container);
+  }
+}
+
 async function main() {
   if (!requireAuth()) return;
 
@@ -175,6 +308,9 @@ async function main() {
   if (profileHeader) {
     await loadProfile();
   }
+
+  // Mobile Navigation Handlers
+  setupMobileNavigation();
 
   const createBtn = document.getElementById("createPostBtn");
   if (createBtn) {

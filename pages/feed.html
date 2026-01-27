@@ -33,6 +33,68 @@
       </a>
     </nav>
 
+    <div id="mobileSearchOverlay" class="mobile-search-overlay">
+      <div class="mobile-search-header">
+        <button id="mobileSearchClose" class="mobile-search-close">
+          Close
+        </button>
+      </div>
+      <div class="mobile-search-content">
+        <input
+          type="search"
+          id="mobileSearchInput"
+          placeholder="Search..."
+          class="mobile-search-input"
+        />
+        <div class="mobile-search-toggle">
+          <label>
+            <input type="radio" name="mobileSearchType" value="posts" checked />
+            Posts
+          </label>
+          <label>
+            <input type="radio" name="mobileSearchType" value="profiles" />
+            Profiles
+          </label>
+        </div>
+        <div id="mobileSearchResults" class="mobile-search-results"></div>
+      </div>
+    </div>
+
+    <div id="mobileCreateOverlay" class="mobile-create-overlay">
+      <div class="mobile-create-header">
+        <button id="mobileCreateClose" class="mobile-create-close">
+          Close
+        </button>
+        <h2>Create Post</h2>
+      </div>
+      <div class="mobile-create-content">
+        <form id="mobileCreateForm">
+          <input
+            type="text"
+            id="mobilePostTitle"
+            placeholder="Title"
+            class="mobile-input"
+          />
+          <textarea
+            id="mobilePostBody"
+            placeholder="What's on your mind?"
+            class="mobile-textarea"
+          ></textarea>
+          <button type="submit" class="mobile-submit-btn">Post</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="mobileLogoutOverlay" class="mobile-logout-overlay">
+      <div class="mobile-logout-dialog">
+        <p>Are you sure you want to log out?</p>
+        <a href="login.html" class="mobile-logout-confirm">Yes, log out</a>
+        <button id="mobileLogoutCancel" class="mobile-logout-cancel">
+          Cancel
+        </button>
+      </div>
+    </div>
+
     <header class="desktop-header">
       <nav class="sidebar">
         <ul>

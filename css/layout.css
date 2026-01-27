@@ -7,10 +7,6 @@
   display: flex;
 }
 
-.main-wrapper {
-  display: block;
-}
-
 @media (min-width: 768px) {
   .desktop-header {
     display: block;
