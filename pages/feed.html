@@ -13,109 +13,75 @@
     <title>Feed</title>
   </head>
   <body>
-    <header class="sidebar desktop-header">
-      <div class="sidebar-logo">
-        <img src="../assets/logo.png" alt="Pulse Logo" />
-      </div>
-      <nav>
-        <ul class="sidebar-nav">
-          <li>
-            <a href="feed.html" class="active">Feed (Desktop)</a>
+    <header class="desktop-header">
+      <nav class="sidebar">
+        <ul>
+          <li class="sidebar-logo">
+            <img src="../assets/logo.png" alt="Pulse Logo" />
           </li>
           <li>
-            <button id="toggleSearchBtn" class="nav-button">Search (Desktop)</button>
+            <a href="feed.html"
+              ><img
+                src="../assets/home.svg"
+                alt="Home Icon"
+                class="desktop-icon"
+            /></a>
           </li>
           <li>
-            <button id="createPostBtn" class="nav-button">Create Post (Desktop)</button>
+            <button id="desktopSearchBtn" class="desktop-btn">
+              <img
+                src="../assets/search.svg"
+                alt="Search icon"
+                class="desktop-icon"
+              />
+            </button>
           </li>
           <li>
-            <a href="profile.html" id="profileLink">Profile (Desktop)</a>
+            <button id="desktopCreateBtn" class="desktop-btn">
+              <img
+                src="../assets/add.svg"
+                alt="Create icon"
+                class="desktop-icon"
+              />
+            </button>
           </li>
           <li>
-            <button id="logoutBtn" class="nav-button logout-btn">
-              Log Out (Desktop)
+            <a href="profile.html"
+              ><img src="" alt="Profile Icon" class="desktop-icon"
+            /></a>
+          </li>
+          <li>
+            <button id="desktopLogoutBtn" class="desktop-btn">
+              <img
+                src="../assets/sign-out.svg"
+                alt="Logout icon"
+                class="desktop-icon"
+              />
             </button>
           </li>
         </ul>
       </nav>
-      <div id="sidebarSearchContainer" class="sidebar-search-expanded">
-        <input
-          type="search"
-          id="searchInput"
-          placeholder="Search..."
-          class="sidebar-search-input"
-        />
-        <div class="search-type-toggle">
-          <label>
-            <input type="radio" name="searchType" value="posts" checked />
-            Posts
-          </label>
-          <label>
-            <input type="radio" name="searchType" value="profiles" />
-            Profiles
-          </label>
-        </div>
-      </div>
-    </header>
 
-    <header class="mobile-header-top">
-      <button id="mobileCreateBtn" class="mobile-btn-left">
-        <img src="../assets/add.svg" alt="Create" class="mobile-icon" />
-      </button>
-      <button id="mobileLogoutBtn" class="mobile-btn-right">
-        <img src="../assets/sign-out.svg" alt="Logout" class="mobile-icon" />
-      </button>
-    </header>
-    <nav class="mobile-nav-bottom">
-      <a href="feed.html" class="mobile-nav-item active">
-        <img src="../assets/home.svg" alt="Home" class="mobile-icon" />
-      </a>
-      <button id="mobileSearchBtn" class="mobile-nav-item">
-        <img src="../assets/search.svg" alt="Search" class="mobile-icon" />
-      </button>
-      <a href="profile.html" class="mobile-nav-item">
-        <img src="" alt="Profile" class="mobile-icon mobile-profile-avatar" />
-      </a>
-    </nav>
-    <div id="mobileSearchOverlay" class="mobile-search-overlay">
-      <button id="mobileSearchClose" class="mobile-search-close">
-        Lukk
-      </button>
-      <input
-        type="search"
-        id="mobileSearchInput"
-        placeholder="Søk..."
-        class="mobile-search-input"
-      />
-      <div class="mobile-search-type-toggle">
-        <label>
-          <input type="radio" name="mobileSearchType" value="posts" checked />
-          Innlegg
-        </label>
-        <label>
-          <input type="radio" name="mobileSearchType" value="profiles" />
-          Profiler
-        </label>
-      </div>
-    </div>
-    <div id="mobileCreateOverlay" class="mobile-create-overlay">
-      <button id="mobileCreateClose" class="mobile-create-close">
-        Lukk
-      </button>
-      <h2>Opprett innlegg</h2>
-      <p>Her kommer opprett-skjema</p>
-    </div>
-    <div id="mobileLogoutOverlay" class="mobile-logout-overlay">
-      <div class="mobile-logout-dialog">
-        <p>Are you sure you want to log out?</p>
-        <a href="login.html" class="mobile-logout-confirm">Yes, log out</a>
-        <button id="mobileLogoutCancel" class="mobile-logout-cancel">
-          Cancel
+      <header class="mobile-header-top">
+        <button id="mobileCreateBtn" class="mobile-btn-left">
+          <img src="../assets/add.svg" alt="Create" class="mobile-icon" />
         </button>
-      </div>
-    </div>
-
-    </header>
+        <button id="mobileLogoutBtn" class="mobile-btn-right">
+          <img src="../assets/sign-out.svg" alt="Logout" class="mobile-icon" />
+        </button>
+      </header>
+      <nav class="mobile-nav-bottom">
+        <a href="feed.html" class="mobile-nav-item">
+          <img src="../assets/home.svg" alt="Home" class="mobile-icon" />
+        </a>
+        <button id="mobileSearchBtn" class="mobile-nav-item">
+          <img src="../assets/search.svg" alt="Search" class="mobile-icon" />
+        </button>
+        <a href="profile.html" class="mobile-nav-item">
+          <img src="" alt="Profile" class="mobile-icon mobile-profile-avatar" />
+        </a>
+      </nav>
+      
     <div class="main-wrapper">
       <main>
         <div id="displayContainer" class="display-container"></div>
