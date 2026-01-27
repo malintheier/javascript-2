@@ -170,9 +170,6 @@ function setupMobileNavigation() {
   const mobileSearchClose = document.getElementById("mobileSearchClose");
   const mobileSearchInput = document.getElementById("mobileSearchInput");
   const mobileSearchResults = document.getElementById("mobileSearchResults");
-  const mobileSearchTypeRadios = document.querySelectorAll(
-    'input[name="mobileSearchType"]',
-  );
 
   if (mobileSearchBtn && mobileSearchOverlay) {
     mobileSearchBtn.addEventListener("click", () => {
@@ -190,9 +187,6 @@ function setupMobileNavigation() {
     mobileSearchInput.addEventListener("input", (e) => {
       clearTimeout(searchTimeout);
       const query = e.target.value;
-      const searchType = document.querySelector(
-        'input[name="mobileSearchType"]:checked',
-      ).value;
 
       searchTimeout = setTimeout(async () => {
         if (!query.trim()) {
@@ -200,27 +194,46 @@ function setupMobileNavigation() {
           return;
         }
 
-        if (searchType === "posts") {
-          const results = await searchPosts(query);
-          const filteredResults = results.filter(
-            (post) => post.tags && post.tags.includes("Pulse2026"),
-          );
-          generatePostsHTML(filteredResults, mobileSearchResults);
-        } else if (searchType === "profiles") {
-          const profiles = await searchProfiles(query);
-          displayProfiles(profiles, mobileSearchResults);
+        mobileSearchResults.innerHTML = "";
+
+        const postsHeading = document.createElement("h3");
+        postsHeading.textContent = "Posts";
+        postsHeading.className = "search-section-heading";
+        mobileSearchResults.appendChild(postsHeading);
+
+        const postsContainer = document.createElement("div");
+        postsContainer.className = "search-posts-section";
+        mobileSearchResults.appendChild(postsContainer);
+
+        const postResults = await searchPosts(query);
+        const filteredPosts = postResults.filter(
+          (post) => post.tags && post.tags.includes("Pulse2026"),
+        );
+
+        if (filteredPosts.length > 0) {
+          generatePostsHTML(filteredPosts, postsContainer);
+        } else {
+          postsContainer.innerHTML = '<p class="no-results">No posts found</p>';
+        }
+
+        const profilesHeading = document.createElement("h3");
+        profilesHeading.textContent = "Profiles";
+        profilesHeading.className = "search-section-heading";
+        mobileSearchResults.appendChild(profilesHeading);
+
+        const profilesContainer = document.createElement("div");
+        profilesContainer.className = "search-profiles-section";
+        mobileSearchResults.appendChild(profilesContainer);
+
+        const profileResults = await searchProfiles(query);
+
+        if (profileResults.length > 0) {
+          displayProfiles(profileResults, profilesContainer);
+        } else {
+          profilesContainer.innerHTML =
+            '<p class="no-results">No profiles found</p>';
         }
       }, 300);
-    });
-
-    mobileSearchTypeRadios.forEach((radio) => {
-      radio.addEventListener("change", () => {
-        const query = mobileSearchInput.value;
-        if (query.trim()) {
-          const searchType = radio.value;
-          handleMobileSearch(query, searchType, mobileSearchResults);
-        }
-      });
     });
   }
 
@@ -309,7 +322,6 @@ async function main() {
     await loadProfile();
   }
 
-  // Mobile Navigation Handlers
   setupMobileNavigation();
 
   const createBtn = document.getElementById("createPostBtn");
