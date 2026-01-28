@@ -16,6 +16,7 @@ import {
   showMessage,
   openCreatePostModal,
   openEditPostModal,
+  showDeleteConfirm,
 } from "./utils/showMessage.js";
 
 const displayContainer = document.getElementById("displayContainer");
@@ -386,7 +387,7 @@ async function main() {
   });
 
   window.addEventListener("deletePost", async (e) => {
-    if (confirm("Are you sure you want to delete this post?")) {
+    showDeleteConfirm(async () => {
       const result = await deletePost(e.detail.id);
       if (result) {
         showMessage("Post deleted successfully!", "success");
@@ -399,7 +400,7 @@ async function main() {
       } else {
         showMessage("Failed to delete post", "error");
       }
-    }
+    });
   });
 }
 

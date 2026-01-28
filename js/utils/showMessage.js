@@ -198,3 +198,37 @@ export function openEditPostModal(post, updatePostCallback, onSuccessCallback) {
     }
   });
 }
+
+export function showDeleteConfirm(onConfirm) {
+  const overlay = document.createElement("div");
+  overlay.className = "mobile-logout-overlay active";
+
+  const dialog = document.createElement("div");
+  dialog.className = "mobile-logout-dialog";
+  dialog.innerHTML = `
+    <p>Are you sure you want to delete this post?</p>
+    <button class="mobile-logout-confirm" id="confirmDelete">Yes, delete</button>
+    <button class="mobile-logout-cancel" id="cancelDelete">Cancel</button>
+  `;
+
+  overlay.appendChild(dialog);
+  document.body.appendChild(overlay);
+
+  const confirmBtn = dialog.querySelector("#confirmDelete");
+  const cancelBtn = dialog.querySelector("#cancelDelete");
+
+  confirmBtn.addEventListener("click", () => {
+    overlay.remove();
+    onConfirm();
+  });
+
+  cancelBtn.addEventListener("click", () => {
+    overlay.remove();
+  });
+
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) {
+      overlay.remove();
+    }
+  });
+}
