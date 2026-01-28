@@ -13,6 +13,7 @@ export function renderPostCard(post, showEditButton = false) {
   const song = songTag ? songTag.replace("song:", "") : "";
 
   const authorContainer = document.createElement("p");
+  authorContainer.classList.add("post-author");
 
   const authorLink = document.createElement("a");
   authorLink.textContent = post.author?.name || "Unknown";
@@ -60,6 +61,7 @@ export function renderPostCard(post, showEditButton = false) {
   }
 
   const title = document.createElement("h2");
+  title.classList.add("post-title");
   title.textContent = post.title;
   postContainer.append(title);
 
