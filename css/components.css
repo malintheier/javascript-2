@@ -169,6 +169,36 @@
   color: #b0b3b8;
 }
 
+.profile-search-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
+  background-color: #2a2c2e;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.profile-search-card:hover {
+  background-color: #3a3b3c;
+}
+
+.profile-search-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.profile-search-name {
+  font-size: 16px;
+  font-weight: 500;
+}
+
 .mobile-search-overlay {
   position: fixed;
   top: 100%;
