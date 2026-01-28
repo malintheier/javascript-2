@@ -76,9 +76,75 @@
   padding: 70px 20px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .desktop-header {
     display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100px;
+    background: #1c1e21;
+    border-right: 1px solid #3a3b3c;
+    z-index: 100;
+  }
+
+  .sidebar {
+    height: 100%;
+    padding: 20px 0;
+  }
+
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+  }
+
+  .sidebar li {
+    padding: 0 20px;
+  }
+
+  .sidebar-logo {
+    margin-bottom: 30px;
+  }
+
+  .sidebar-logo img {
+    width: 70px;
+    height: auto;
+  }
+
+  .sidebar a,
+  .desktop-btn {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    width: 100%;
+    text-decoration: none;
+    color: white;
+  }
+
+  .sidebar a:hover,
+  .desktop-btn:hover {
+    background-color: #3a3b3c;
+  }
+
+  .desktop-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .desktop-icon[alt="Profile Icon"] {
+    border-radius: 50%;
+    object-fit: cover;
   }
 
   .mobile-header-top,
@@ -87,6 +153,7 @@
   }
 
   .main-wrapper {
-    padding: 20px;
+    margin-left: 180px;
+    padding: 40px;
   }
 }
