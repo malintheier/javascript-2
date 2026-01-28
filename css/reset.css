@@ -80,15 +80,6 @@ button:focus {
   outline-offset: 2px;
 }
 
-.mobile-search-input::-webkit-search-cancel-button {
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.mobile-search-input::-ms-clear {
-  display: none;
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

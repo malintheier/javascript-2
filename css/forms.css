@@ -16,3 +16,57 @@
 label {
   font-weight: 500;
 }
+
+#mobileCreateForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  color: white;
+}
+
+.mobile-input,
+.mobile-textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #3a3b3c;
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.mobile-textarea {
+  min-height: 200px;
+  resize: vertical;
+}
+
+.mobile-submit-btn {
+  background: #3a3b3c;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.mobile-search-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #3a3b3c;
+  border: 1px solid #3a3b3c;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.mobile-search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.mobile-search-input::-ms-clear {
+  display: none;
+}
