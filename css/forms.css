@@ -40,6 +40,8 @@ label {
   border: 1px solid #3a3b3c;
   border-radius: 8px;
   font-family: inherit;
+  background-color: #1c1e21;
+  color: white;
 }
 
 .mobile-textarea {
