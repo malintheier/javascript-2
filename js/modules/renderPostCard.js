@@ -7,13 +7,11 @@ export function renderPostCard(post, showEditButton = false) {
   postContainer.classList.add("post-card");
   postContainer.style.cursor = "pointer";
 
-  // Extract artist and song from tags
   const artistTag = post.tags?.find((tag) => tag.startsWith("artist:"));
   const songTag = post.tags?.find((tag) => tag.startsWith("song:"));
   const artist = artistTag ? artistTag.replace("artist:", "") : "";
   const song = songTag ? songTag.replace("song:", "") : "";
 
-  // 1. Author
   const authorContainer = document.createElement("p");
 
   const authorLink = document.createElement("a");
@@ -26,36 +24,45 @@ export function renderPostCard(post, showEditButton = false) {
   authorContainer.appendChild(authorLink);
   postContainer.append(authorContainer);
 
-  // 2. Image
-  if (post.media?.url) {
-    const image = document.createElement("img");
-    image.src = post.media.url;
-    image.alt = post.media.alt || "";
-    postContainer.append(image);
+  if (post.media?.url || song || artist) {
+    const mediaSection = document.createElement("div");
+    mediaSection.classList.add("post-card-media-section");
+
+    if (post.media?.url) {
+      const image = document.createElement("img");
+      image.src = post.media.url;
+      image.alt = post.media.alt || "";
+      mediaSection.append(image);
+    }
+
+    const infoContainer = document.createElement("div");
+    infoContainer.classList.add("post-card-info");
+
+    if (song) {
+      const songElement = document.createElement("p");
+      songElement.classList.add("post-song");
+      songElement.textContent = song;
+      infoContainer.append(songElement);
+    }
+
+    if (artist) {
+      const artistElement = document.createElement("p");
+      artistElement.classList.add("post-artist");
+      artistElement.textContent = artist;
+      infoContainer.append(artistElement);
+    }
+
+    if (infoContainer.children.length > 0) {
+      mediaSection.append(infoContainer);
+    }
+
+    postContainer.append(mediaSection);
   }
 
-  // 3. Song
-  if (song) {
-    const songElement = document.createElement("p");
-    songElement.classList.add("post-song");
-    songElement.textContent = song;
-    postContainer.append(songElement);
-  }
-
-  // 4. Artist
-  if (artist) {
-    const artistElement = document.createElement("p");
-    artistElement.classList.add("post-artist");
-    artistElement.textContent = artist;
-    postContainer.append(artistElement);
-  }
-
-  // 5. Title
   const title = document.createElement("h2");
   title.textContent = post.title;
   postContainer.append(title);
 
-  // 6. Body
   const body = document.createElement("p");
   body.textContent = post.body;
   postContainer.append(body);
