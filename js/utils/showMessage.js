@@ -157,6 +157,11 @@ export function openEditPostModal(post, updatePostCallback, onSuccessCallback) {
     const postData = {
       title: formData.get("title"),
       body: body,
+      tags: [
+        "Pulse2026",
+        `artist:${formData.get("artist")}`,
+        `song:${formData.get("song")}`,
+      ],
     };
 
     const mediaUrl = formData.get("mediaUrl");

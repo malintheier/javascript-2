@@ -7,14 +7,14 @@ export function renderPostCard(post, showEditButton = false) {
   postContainer.classList.add("post-card");
   postContainer.style.cursor = "pointer";
 
-  const title = document.createElement("h2");
-  title.textContent = post.title;
+  // Extract artist and song from tags
+  const artistTag = post.tags?.find((tag) => tag.startsWith("artist:"));
+  const songTag = post.tags?.find((tag) => tag.startsWith("song:"));
+  const artist = artistTag ? artistTag.replace("artist:", "") : "";
+  const song = songTag ? songTag.replace("song:", "") : "";
 
-  const body = document.createElement("p");
-  body.textContent = post.body;
-
+  // 1. Author
   const authorContainer = document.createElement("p");
-  authorContainer.innerHTML = "Author: ";
 
   const authorLink = document.createElement("a");
   authorLink.textContent = post.author?.name || "Unknown";
@@ -24,7 +24,9 @@ export function renderPostCard(post, showEditButton = false) {
   });
 
   authorContainer.appendChild(authorLink);
+  postContainer.append(authorContainer);
 
+  // 2. Image
   if (post.media?.url) {
     const image = document.createElement("img");
     image.src = post.media.url;
@@ -32,7 +34,31 @@ export function renderPostCard(post, showEditButton = false) {
     postContainer.append(image);
   }
 
-  postContainer.append(title, body, authorContainer);
+  // 3. Song
+  if (song) {
+    const songElement = document.createElement("p");
+    songElement.classList.add("post-song");
+    songElement.textContent = song;
+    postContainer.append(songElement);
+  }
+
+  // 4. Artist
+  if (artist) {
+    const artistElement = document.createElement("p");
+    artistElement.classList.add("post-artist");
+    artistElement.textContent = artist;
+    postContainer.append(artistElement);
+  }
+
+  // 5. Title
+  const title = document.createElement("h2");
+  title.textContent = post.title;
+  postContainer.append(title);
+
+  // 6. Body
+  const body = document.createElement("p");
+  body.textContent = post.body;
+  postContainer.append(body);
 
   if (showEditButton) {
     const currentUser = getUser();
