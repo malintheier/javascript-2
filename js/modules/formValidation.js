@@ -27,6 +27,18 @@ export function initRegisterForm() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const formFields = Object.fromEntries(formData);
+
+    // Remove empty avatar field if not provided
+    if (!formFields.avatar || formFields.avatar.trim() === "") {
+      delete formFields.avatar;
+    } else {
+      // Wrap avatar URL in required object format
+      formFields.avatar = {
+        url: formFields.avatar.trim(),
+        alt: formFields.name || "User avatar",
+      };
+    }
+
     const result = await registerUser(formFields);
 
     if (result && result.data) {

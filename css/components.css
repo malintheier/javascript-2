@@ -169,6 +169,49 @@
   color: #b0b3b8;
 }
 
+.btn-edit-bio {
+  background-color: #1c1e21;
+  color: white;
+  border: 1px solid #3a3b3c;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.btn-edit-bio:hover {
+  border: 2px solid white;
+}
+
+.btn-follow,
+.btn-unfollow {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.btn-follow {
+  background-color: #1c1e21;
+  color: white;
+}
+
+.btn-follow:hover {
+  border: 2px solid white;
+}
+
+.btn-unfollow {
+  background-color: #3a3b3c;
+  color: white;
+}
+
+.btn-unfollow:hover {
+  border: 2px solid white;
+}
+
 .profile-search-card {
   display: flex;
   align-items: center;
