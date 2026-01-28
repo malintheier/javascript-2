@@ -35,19 +35,19 @@ export function showMessage(message, type = "info") {
 export function openCreatePostModal(createPostCallback, loadFeedCallback) {
   const formHTML = `
     <form id="createPostForm" class="post-form">
+      <label for="song">Song:</label>
+      <input type="text" id="song" name="song" required class="form-input" />
+      
+      <label for="artist">Artist:</label>
+      <input type="text" id="artist" name="artist" required class="form-input" />
+      
       <label for="title">Title:</label>
       <input type="text" id="title" name="title" required class="form-input" />
       
       <label for="body">Body: <span id="createCharCount" class="char-count">0/280</span></label>
       <textarea id="body" name="body" required class="form-textarea" maxlength="280"></textarea>
       
-      <label for="artist">Artist:</label>
-      <input type="text" id="artist" name="artist" required class="form-input" />
-      
-      <label for="song">Song:</label>
-      <input type="text" id="song" name="song" required class="form-input" />
-      
-      <label for="mediaUrl">Media URL (optional):</label>
+      <label for="mediaUrl">Album cover URL (optional):</label>
       <input type="url" id="mediaUrl" name="mediaUrl" class="form-input" />
       
       <label for="mediaAlt">Media Alt Text (optional):</label>
@@ -111,15 +111,26 @@ export function openCreatePostModal(createPostCallback, loadFeedCallback) {
 }
 
 export function openEditPostModal(post, updatePostCallback, onSuccessCallback) {
+  const artistTag = post.tags?.find((tag) => tag.startsWith("artist:"));
+  const songTag = post.tags?.find((tag) => tag.startsWith("song:"));
+  const artist = artistTag ? artistTag.replace("artist:", "") : "";
+  const song = songTag ? songTag.replace("song:", "") : "";
+
   const formHTML = `
     <form id="editPostForm" class="post-form">
+      <label for="editSong">Song:</label>
+      <input type="text" id="editSong" name="song" required class="form-input" value="${song}" />
+      
+      <label for="editArtist">Artist:</label>
+      <input type="text" id="editArtist" name="artist" required class="form-input" value="${artist}" />
+      
       <label for="editTitle">Title:</label>
       <input type="text" id="editTitle" name="title" required class="form-input" value="${post.title}" />
       
       <label for="editBody">Body: <span id="editCharCount" class="char-count">0/280</span></label>
       <textarea id="editBody" name="body" required class="form-textarea" maxlength="280">${post.body}</textarea>
       
-      <label for="editMediaUrl">Media URL (optional):</label>
+      <label for="editMediaUrl">Album cover URL (optional):</label>
       <input type="url" id="editMediaUrl" name="mediaUrl" class="form-input" value="${post.media?.url || ""}" />
       
       <label for="editMediaAlt">Media Alt Text (optional):</label>
