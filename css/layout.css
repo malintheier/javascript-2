@@ -87,6 +87,11 @@
     background: #1c1e21;
     border-right: 1px solid #3a3b3c;
     z-index: 100;
+    transition: width 0.3s ease;
+  }
+
+  .desktop-header.expanded {
+    width: 350px;
   }
 
   .sidebar {
@@ -115,6 +120,36 @@
   .sidebar-logo img {
     width: 70px;
     height: auto;
+  }
+
+  .desktop-search-container {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .desktop-header.expanded .desktop-search-container {
+    display: flex;
+  }
+
+  .desktop-search-input {
+    width: 100%;
+    padding: 12px;
+    background-color: #3a3b3c;
+    border: 1px solid #3a3b3c;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+  }
+
+  .desktop-search-input:focus {
+    outline: none;
+    border-color: white;
+  }
+
+  .desktop-search-results {
+    max-height: 400px;
+    overflow-y: auto;
   }
 
   .sidebar a,
@@ -153,7 +188,12 @@
   }
 
   .main-wrapper {
-    margin-left: 180px;
+    margin-left: 100px;
     padding: 40px;
+    transition: margin-left 0.3s ease;
+  }
+
+  .desktop-header.expanded ~ .main-wrapper {
+    margin-left: 350px;
   }
 }

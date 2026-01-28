@@ -393,6 +393,95 @@ async function main() {
 
   setupMobileNavigation();
 
+  const desktopSearchBtn = document.getElementById("desktopSearchBtn");
+  const desktopHeader = document.querySelector(".desktop-header");
+  const desktopSearchInput = document.getElementById("desktopSearchInput");
+  const desktopSearchResults = document.getElementById("desktopSearchResults");
+
+  if (desktopSearchBtn && desktopHeader) {
+    desktopSearchBtn.addEventListener("click", () => {
+      desktopHeader.classList.toggle("expanded");
+      if (desktopHeader.classList.contains("expanded")) {
+        desktopSearchInput.focus();
+      } else {
+        desktopSearchInput.value = "";
+        desktopSearchResults.innerHTML = "";
+      }
+    });
+
+    let searchTimeout;
+    if (desktopSearchInput) {
+      desktopSearchInput.addEventListener("input", (e) => {
+        clearTimeout(searchTimeout);
+        const query = e.target.value;
+
+        searchTimeout = setTimeout(async () => {
+          if (!query.trim()) {
+            desktopSearchResults.innerHTML = "";
+            return;
+          }
+
+          desktopSearchResults.innerHTML = "";
+
+          const postsHeading = document.createElement("h3");
+          postsHeading.textContent = "Posts";
+          postsHeading.className = "search-section-heading";
+          desktopSearchResults.appendChild(postsHeading);
+
+          const postsContainer = document.createElement("div");
+          postsContainer.className = "search-posts-section";
+          desktopSearchResults.appendChild(postsContainer);
+
+          const postResults = await searchPosts(query);
+          const filteredPosts = postResults.filter(
+            (post) => post.tags && post.tags.includes("Pulse2026"),
+          );
+
+          if (filteredPosts.length > 0) {
+            generatePostsHTML(filteredPosts, postsContainer);
+          } else {
+            postsContainer.innerHTML =
+              '<p class="no-results">No posts found</p>';
+          }
+
+          const profilesHeading = document.createElement("h3");
+          profilesHeading.textContent = "Profiles";
+          profilesHeading.className = "search-section-heading";
+          desktopSearchResults.appendChild(profilesHeading);
+
+          const profilesContainer = document.createElement("div");
+          profilesContainer.className = "search-profiles-section";
+          desktopSearchResults.appendChild(profilesContainer);
+
+          const profileResults = await searchProfiles(query);
+          if (profileResults.length > 0) {
+            displayProfiles(profileResults, profilesContainer);
+          } else {
+            profilesContainer.innerHTML =
+              '<p class="no-results">No profiles found</p>';
+          }
+        }, 300);
+      });
+    }
+  }
+
+  // Desktop create button
+  const desktopCreateBtn = document.getElementById("desktopCreateBtn");
+  if (desktopCreateBtn) {
+    desktopCreateBtn.addEventListener("click", () => {
+      openCreatePostModal(createPost, loadFeed);
+    });
+  }
+
+  // Desktop logout button
+  const desktopLogoutBtn = document.getElementById("desktopLogoutBtn");
+  const mobileLogoutOverlay = document.getElementById("mobileLogoutOverlay");
+  if (desktopLogoutBtn && mobileLogoutOverlay) {
+    desktopLogoutBtn.addEventListener("click", () => {
+      mobileLogoutOverlay.classList.add("active");
+    });
+  }
+
   const createBtn = document.getElementById("createPostBtn");
   if (createBtn) {
     createBtn.addEventListener("click", () => {
