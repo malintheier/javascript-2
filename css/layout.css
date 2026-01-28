@@ -193,6 +193,13 @@
     margin-left: 100px;
     padding: 40px;
     transition: margin-left 0.3s ease;
+    display: flex;
+    justify-content: center;
+  }
+
+  .main-wrapper main {
+    max-width: 800px;
+    width: 100%;
   }
 
   .desktop-header.expanded ~ .main-wrapper {
