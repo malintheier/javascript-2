@@ -39,6 +39,12 @@ export function renderProfileHeader(
     editBioBtn.className = "btn-edit-bio";
     editBioBtn.textContent = "Edit Bio";
     container.appendChild(editBioBtn);
+
+    const editAvatarBtn = document.createElement("button");
+    editAvatarBtn.id = "editAvatarBtn";
+    editAvatarBtn.className = "btn-edit-bio";
+    editAvatarBtn.textContent = "Edit Avatar";
+    container.appendChild(editAvatarBtn);
   }
 
   if (!isOwnProfile && currentUser) {

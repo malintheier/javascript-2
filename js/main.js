@@ -149,6 +149,63 @@ async function loadProfile() {
         });
       });
     }
+
+    const profileAvatar = document.getElementById("editAvatarBtn");
+    if (profileAvatar) {
+      profileAvatar.addEventListener("click", () => {
+        const formHTML = `
+          <form id="editAvatarForm" class="avatar-form">
+            <label for="avatarUrl">Avatar URL:</label>
+            <input type="url" id="avatarUrl" name="avatarUrl" value="${profile.avatar?.url || ""}" required class="form-input" />
+            
+            <label for="avatarAlt">Alt text:</label>
+            <input type="text" id="avatarAlt" name="avatarAlt" value="${profile.avatar?.alt || profile.name}" class="form-input" />
+            
+            <button type="submit" class="btn btn-primary">Save Avatar</button>
+          </form>
+        `;
+
+        const modal = showModal("Edit Avatar", formHTML);
+
+        const form = modal.querySelector("#editAvatarForm");
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const formData = new FormData(form);
+          const avatarUrl = formData.get("avatarUrl");
+          const avatarAlt = formData.get("avatarAlt");
+
+          const { updateProfileAvatar } = await import("./api/profiles.js");
+          const result = await updateProfileAvatar(
+            user.name,
+            avatarUrl,
+            avatarAlt,
+          );
+
+          if (result) {
+            showMessage("Avatar updated successfully!", "success");
+            modal.remove();
+
+            const avatarImg = document.querySelector(".profile-avatar");
+            if (avatarImg) {
+              avatarImg.src = avatarUrl;
+              avatarImg.alt = avatarAlt;
+            }
+            profile.avatar = { url: avatarUrl, alt: avatarAlt };
+
+            const navAvatars = document.querySelectorAll(
+              ".mobile-profile-avatar, .desktop-icon[alt='Profile Icon']",
+            );
+            navAvatars.forEach((img) => {
+              img.src = avatarUrl;
+              img.alt = avatarAlt;
+            });
+          } else {
+            showMessage("Failed to update avatar", "error");
+          }
+        });
+      });
+    }
   }
 
   if (postsContainer && profile.posts) {

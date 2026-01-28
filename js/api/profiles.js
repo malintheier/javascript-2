@@ -84,6 +84,32 @@ export async function updateProfileBio(username, bio) {
   return null;
 }
 
+export async function updateProfileAvatar(username, avatarUrl, altText) {
+  const accessToken = getFromLocalStorage("accessToken");
+
+  const response = await fetch(`${SOCIAL_URL}/profiles/${username}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+      "X-Noroff-API-Key": NOROFF_API_KEY,
+    },
+    body: JSON.stringify({
+      avatar: {
+        url: avatarUrl,
+        alt: altText,
+      },
+    }),
+  });
+
+  if (response.ok) {
+    const result = await response.json();
+    return result.data;
+  }
+
+  return null;
+}
+
 export async function searchProfiles(query) {
   const accessToken = getFromLocalStorage("accessToken");
 
