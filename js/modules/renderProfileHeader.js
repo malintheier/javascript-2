@@ -7,7 +7,8 @@ export function renderProfileHeader(
   container.className = "profile-header";
 
   const avatar = document.createElement("img");
-  avatar.src = profile.avatar?.url || "https://via.placeholder.com/150";
+  avatar.src =
+    profile.avatar?.url || "https://placehold.co/150x150/333/fff?text=User";
   avatar.alt = profile.avatar?.alt || profile.name;
   avatar.className = "profile-avatar";
 

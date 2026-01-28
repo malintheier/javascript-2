@@ -459,6 +459,25 @@ async function main() {
       }
     });
   });
+
+  const { getFromLocalStorage } = await import("./utils/storage.js");
+  const user = getFromLocalStorage("user");
+  if (user) {
+    const userData = JSON.parse(user);
+    const mobileAvatar = document.querySelector(".mobile-profile-avatar");
+    const desktopAvatar = document.querySelector(
+      ".desktop-icon[alt='Profile Icon']",
+    );
+
+    if (mobileAvatar && userData.avatar?.url) {
+      mobileAvatar.src = userData.avatar.url;
+      mobileAvatar.alt = userData.name;
+    }
+    if (desktopAvatar && userData.avatar?.url) {
+      desktopAvatar.src = userData.avatar.url;
+      desktopAvatar.alt = userData.name;
+    }
+  }
 }
 
 main();

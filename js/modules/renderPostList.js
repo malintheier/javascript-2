@@ -23,7 +23,8 @@ export function displayProfiles(profiles, displayContainer) {
     profileCard.href = `profile.html?name=${profile.name}`;
 
     const avatar = document.createElement("img");
-    avatar.src = profile.avatar?.url || "https://via.placeholder.com/50";
+    avatar.src =
+      profile.avatar?.url || "https://placehold.co/50x50/333/fff?text=User";
     avatar.alt = profile.avatar?.alt || profile.name;
     avatar.className = "profile-search-avatar";
 
