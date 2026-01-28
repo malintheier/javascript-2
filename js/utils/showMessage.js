@@ -41,6 +41,12 @@ export function openCreatePostModal(createPostCallback, loadFeedCallback) {
       <label for="body">Body: <span id="createCharCount" class="char-count">0/280</span></label>
       <textarea id="body" name="body" required class="form-textarea" maxlength="280"></textarea>
       
+      <label for="artist">Artist:</label>
+      <input type="text" id="artist" name="artist" required class="form-input" />
+      
+      <label for="song">Song:</label>
+      <input type="text" id="song" name="song" required class="form-input" />
+      
       <label for="mediaUrl">Media URL (optional):</label>
       <input type="url" id="mediaUrl" name="mediaUrl" class="form-input" />
       
@@ -77,6 +83,11 @@ export function openCreatePostModal(createPostCallback, loadFeedCallback) {
     const postData = {
       title: formData.get("title"),
       body: body,
+      tags: [
+        "Pulse2026",
+        `artist:${formData.get("artist")}`,
+        `song:${formData.get("song")}`,
+      ],
     };
 
     const mediaUrl = formData.get("mediaUrl");

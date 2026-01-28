@@ -256,10 +256,12 @@ function setupMobileNavigation() {
       e.preventDefault();
       const title = document.getElementById("mobilePostTitle").value;
       const body = document.getElementById("mobilePostBody").value;
+      const artist = document.getElementById("mobilePostArtist").value;
+      const song = document.getElementById("mobilePostSong").value;
       const imageUrl = document.getElementById("mobilePostImageUrl").value;
       const imageAlt = document.getElementById("mobilePostImageAlt").value;
 
-      if (!title.trim() || !body.trim()) {
+      if (!title.trim() || !body.trim() || !artist.trim() || !song.trim()) {
         showMessage("Please fill in all fields", "error");
         return;
       }
@@ -267,7 +269,7 @@ function setupMobileNavigation() {
       const postData = {
         title: title.trim(),
         body: body.trim(),
-        tags: ["Pulse2026"],
+        tags: ["Pulse2026", `artist:${artist.trim()}`, `song:${song.trim()}`],
       };
 
       if (imageUrl.trim()) {
