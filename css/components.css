@@ -408,6 +408,7 @@
   text-align: center;
   max-width: 500px;
   gap: 20px;
+  margin-top: -40px;
 }
 
 .landing-logo {
