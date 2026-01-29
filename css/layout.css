@@ -177,9 +177,9 @@
     height: 30px;
   }
 
-  .sidebar li a[href="profile.html"] img,
-  .sidebar a[href="profile.html"] .desktop-icon,
-  .sidebar a[href="profile.html"] img {
+  .sidebar li a[href*="profile"] img,
+  .sidebar a[href*="profile"] .desktop-icon,
+  .sidebar a[href*="profile"] img {
     border-radius: 50% !important;
     object-fit: cover !important;
     width: 30px !important;
