@@ -7,9 +7,6 @@
       name="description"
       content="View music post on Pulse - Read about songs, albums, and musical experiences shared by the community."
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="../css/global.css" />
     <link rel="stylesheet" href="../css/layout.css" />
@@ -140,6 +137,15 @@
                 class="desktop-icon"
               />
             </button>
+          </li>
+          <li class="desktop-search-container">
+            <input
+              type="search"
+              id="desktopSearchInput"
+              placeholder="Search..."
+              class="desktop-search-input"
+            />
+            <div id="desktopSearchResults" class="desktop-search-results"></div>
           </li>
           <li>
             <button id="desktopCreateBtn" class="desktop-btn">

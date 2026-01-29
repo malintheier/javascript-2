@@ -465,7 +465,6 @@ async function main() {
     }
   }
 
-  // Desktop create button
   const desktopCreateBtn = document.getElementById("desktopCreateBtn");
   if (desktopCreateBtn) {
     desktopCreateBtn.addEventListener("click", () => {
@@ -473,7 +472,6 @@ async function main() {
     });
   }
 
-  // Desktop logout button
   const desktopLogoutBtn = document.getElementById("desktopLogoutBtn");
   const mobileLogoutOverlay = document.getElementById("mobileLogoutOverlay");
   if (desktopLogoutBtn && mobileLogoutOverlay) {
