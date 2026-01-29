@@ -1,39 +1,83 @@
 export function showModal(title, content) {
-  const modal = document.createElement("div");
-  modal.className = "modal";
+  try {
+    if (!title) {
+      console.error("showModal: title is required");
+      title = "Information";
+    }
 
-  const modalContent = document.createElement("div");
-  modalContent.className = "modal-content";
-  modalContent.innerHTML = `
+    if (!content) {
+      console.error("showModal: content is required");
+      content = "<p>No content provided</p>";
+    }
+
+    const modal = document.createElement("div");
+    modal.className = "modal";
+
+    const modalContent = document.createElement("div");
+    modalContent.className = "modal-content";
+    modalContent.innerHTML = `
     <span class="modal-close">&times;</span>
     <h2>${title}</h2>
     ${content}
   `;
 
-  modal.append(modalContent);
-  document.body.append(modal);
+    modal.append(modalContent);
+    document.body.append(modal);
 
-  const closeBtn = modalContent.querySelector(".modal-close");
-  closeBtn.addEventListener("click", () => modal.remove());
+    const closeBtn = modalContent.querySelector(".modal-close");
+    closeBtn.addEventListener("click", () => modal.remove());
 
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) modal.remove();
-  });
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.remove();
+    });
 
-  return modal;
+    return modal;
+  } catch (error) {
+    console.error("Error showing modal:", error);
+    alert("Unable to display modal. Please try again.");
+    return null;
+  }
 }
 
 export function showMessage(message, type = "info") {
-  const messageEl = document.createElement("div");
-  messageEl.className = `message message-${type}`;
-  messageEl.textContent = message;
-  document.body.append(messageEl);
+  try {
+    if (!message) {
+      console.error("showMessage: message is required");
+      return;
+    }
 
-  setTimeout(() => messageEl.remove(), 3000);
+    const validTypes = ["info", "success", "error", "warning"];
+    if (!validTypes.includes(type)) {
+      console.warn(`showMessage: invalid type '${type}', defaulting to 'info'`);
+      type = "info";
+    }
+
+    const messageEl = document.createElement("div");
+    messageEl.className = `message message-${type}`;
+    messageEl.textContent = message;
+    document.body.append(messageEl);
+
+    setTimeout(() => messageEl.remove(), 3000);
+  } catch (error) {
+    console.error("Error showing message:", error);
+  }
 }
 
 export function openCreatePostModal(createPostCallback, loadFeedCallback) {
-  const formHTML = `
+  try {
+    if (!createPostCallback || typeof createPostCallback !== 'function') {
+      console.error("openCreatePostModal: createPostCallback must be a function");
+      showMessage("Unable to open create post form. Please try again.", "error");
+      return;
+    }
+
+    if (!loadFeedCallback || typeof loadFeedCallback !== 'function') {
+      console.error("openCreatePostModal: loadFeedCallback must be a function");
+      showMessage("Unable to open create post form. Please try again.", "error");
+      return;
+    }
+
+    const formHTML = `
     <form id="createPostForm" class="post-form">
       <label for="song">Song:</label>
       <input type="text" id="song" name="song" required class="form-input" />
@@ -57,11 +101,16 @@ export function openCreatePostModal(createPostCallback, loadFeedCallback) {
     </form>
   `;
 
-  const modal = showModal("Create New Post", formHTML);
+    const modal = showModal("Create New Post", formHTML);
 
-  const form = modal.querySelector("#createPostForm");
-  const bodyTextarea = form.querySelector("#body");
-  const charCount = modal.querySelector("#createCharCount");
+    if (!modal) {
+      showMessage("Unable to open create post form. Please try again.", "error");
+      return;
+    }
+
+    const form = modal.querySelector("#createPostForm");
+    const bodyTextarea = form.querySelector("#body");
+    const charCount = modal.querySelector("#createCharCount");
 
   bodyTextarea.addEventListener("input", () => {
     const length = bodyTextarea.value.length;
@@ -98,23 +147,49 @@ export function openCreatePostModal(createPostCallback, loadFeedCallback) {
       };
     }
 
-    const result = await createPostCallback(postData);
+    try {
+      const result = await createPostCallback(postData);
 
-    if (result) {
-      showMessage("Post created successfully!", "success");
-      modal.remove();
-      loadFeedCallback();
-    } else {
-      showMessage("Failed to create post", "error");
+      if (result) {
+        showMessage("Post created successfully!", "success");
+        modal.remove();
+        loadFeedCallback();
+      }
+    } catch (error) {
+      console.error("Create post error:", error);
+      showMessage(error.message || "Failed to create post. Please try again.", "error");
     }
   });
+  } catch (error) {
+    console.error("Error opening create post modal:", error);
+    showMessage("Unable to open create post form. Please try again.", "error");
+  }
 }
 
 export function openEditPostModal(post, updatePostCallback, onSuccessCallback) {
-  const artistTag = post.tags?.find((tag) => tag.startsWith("artist:"));
-  const songTag = post.tags?.find((tag) => tag.startsWith("song:"));
-  const artist = artistTag ? artistTag.replace("artist:", "") : "";
-  const song = songTag ? songTag.replace("song:", "") : "";
+  try {
+    if (!post || !post.id) {
+      console.error("openEditPostModal: valid post with id is required");
+      showMessage("Unable to edit post: post data is missing.", "error");
+      return;
+    }
+
+    if (!updatePostCallback || typeof updatePostCallback !== 'function') {
+      console.error("openEditPostModal: updatePostCallback must be a function");
+      showMessage("Unable to open edit form. Please try again.", "error");
+      return;
+    }
+
+    if (!onSuccessCallback || typeof onSuccessCallback !== 'function') {
+      console.error("openEditPostModal: onSuccessCallback must be a function");
+      showMessage("Unable to open edit form. Please try again.", "error");
+      return;
+    }
+
+    const artistTag = post.tags?.find((tag) => tag.startsWith("artist:"));
+    const songTag = post.tags?.find((tag) => tag.startsWith("song:"));
+    const artist = artistTag ? artistTag.replace("artist:", "") : "";
+    const song = songTag ? songTag.replace("song:", "") : "";
 
   const formHTML = `
     <form id="editPostForm" class="post-form">
@@ -141,6 +216,11 @@ export function openEditPostModal(post, updatePostCallback, onSuccessCallback) {
   `;
 
   const modal = showModal("Edit Post", formHTML);
+
+  if (!modal) {
+    showMessage("Unable to open edit form. Please try again.", "error");
+    return;
+  }
 
   const form = modal.querySelector("#editPostForm");
   const bodyTextarea = form.querySelector("#editBody");
@@ -190,18 +270,28 @@ export function openEditPostModal(post, updatePostCallback, onSuccessCallback) {
         showMessage("Post updated successfully!", "success");
         modal.remove();
         onSuccessCallback();
-      } else {
-        showMessage("Failed to update post", "error");
       }
     } catch (error) {
-      showMessage(error.message || "Failed to update post", "error");
+      console.error("Update post error:", error);
+      showMessage(error.message || "Failed to update post. Please try again.", "error");
     }
   });
+  } catch (error) {
+    console.error("Error opening edit post modal:", error);
+    showMessage("Unable to open edit form. Please try again.", "error");
+  }
 }
 
 export function showDeleteConfirm(onConfirm) {
-  const overlay = document.createElement("div");
-  overlay.className = "mobile-logout-overlay active";
+  try {
+    if (!onConfirm || typeof onConfirm !== 'function') {
+      console.error("showDeleteConfirm: onConfirm callback must be a function");
+      showMessage("Unable to show delete confirmation. Please try again.", "error");
+      return;
+    }
+
+    const overlay = document.createElement("div");
+    overlay.className = "mobile-logout-overlay active";
 
   const dialog = document.createElement("div");
   dialog.className = "mobile-logout-dialog";
@@ -231,4 +321,8 @@ export function showDeleteConfirm(onConfirm) {
       overlay.remove();
     }
   });
+  } catch (error) {
+    console.error("Error showing delete confirmation:", error);
+    showMessage("Unable to show delete confirmation. Please try again.", "error");
+  }
 }
