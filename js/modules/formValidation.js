@@ -8,10 +8,24 @@ export function initLoginForm() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const formFields = Object.fromEntries(formData);
-    const result = await loginUser(formFields);
 
-    if (result && result.data) {
-      window.location.href = "../pages/feed.html";
+    if (!formFields.email || !formFields.password) {
+      alert("Please enter both email and password to log in.");
+      return;
+    }
+
+    try {
+      const result = await loginUser(formFields);
+
+      if (result && result.data) {
+        window.location.href = "../pages/feed.html";
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert(
+        error.message ||
+          "Failed to log in. Please check your credentials and try again.",
+      );
     }
   }
 
@@ -28,21 +42,43 @@ export function initRegisterForm() {
     const formData = new FormData(event.target);
     const formFields = Object.fromEntries(formData);
 
-    // Remove empty avatar field if not provided
+    if (!formFields.name || !formFields.email || !formFields.password) {
+      alert("Please fill in all required fields (name, email, and password).");
+      return;
+    }
+
+    if (!formFields.email.includes("@")) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    if (formFields.password.length < 8) {
+      alert("Password must be at least 8 characters long.");
+      return;
+    }
+
     if (!formFields.avatar || formFields.avatar.trim() === "") {
       delete formFields.avatar;
     } else {
-      // Wrap avatar URL in required object format
       formFields.avatar = {
         url: formFields.avatar.trim(),
         alt: formFields.name || "User avatar",
       };
     }
 
-    const result = await registerUser(formFields);
+    try {
+      const result = await registerUser(formFields);
 
-    if (result && result.data) {
-      window.location.href = "../pages/login.html";
+      if (result && result.data) {
+        alert("Registration successful! Please log in with your credentials.");
+        window.location.href = "../pages/login.html";
+      }
+    } catch (error) {
+      console.error("Registration failed:", error);
+      alert(
+        error.message ||
+          "Failed to register. Please check your information and try again.",
+      );
     }
   }
 

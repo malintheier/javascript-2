@@ -3,6 +3,24 @@ import { getParam } from "../utils/getParam.js";
 import { getUser } from "../utils/storage.js";
 
 export function renderPostCard(post, showEditButton = false) {
+  if (!post) {
+    console.error("Cannot render post card: post data is missing");
+    const errorContainer = document.createElement("div");
+    errorContainer.classList.add("post-card", "error");
+    errorContainer.innerHTML =
+      "<p>Unable to display post: post data is missing.</p>";
+    return errorContainer;
+  }
+
+  if (!post.title && !post.body) {
+    console.error("Cannot render post card: post has no title or body");
+    const errorContainer = document.createElement("div");
+    errorContainer.classList.add("post-card", "error");
+    errorContainer.innerHTML =
+      "<p>Unable to display post: post content is incomplete.</p>";
+    return errorContainer;
+  }
+
   const postContainer = document.createElement("div");
   postContainer.classList.add("post-card");
   postContainer.style.cursor = "pointer";
@@ -114,22 +132,34 @@ export function renderPostCard(post, showEditButton = false) {
 
 export async function displaySinglePost() {
   const postContainer = document.getElementById("postContainer");
-  const postId = getParam("id");
 
-  if (!postId) {
-    postContainer.innerHTML = "<p>No post ID provided</p>";
+  if (!postContainer) {
+    console.error("Cannot display post: postContainer element not found");
     return;
   }
 
-  const post = await fetchSinglePost(postId);
+  const postId = getParam("id");
 
-  if (post) {
-    const postCard = renderPostCard(post, true);
-    postCard.style.cursor = "default";
-    postCard.onclick = null;
-    postContainer.append(postCard);
-  } else {
-    postContainer.innerHTML = "<p>Post not found</p>";
+  if (!postId) {
+    postContainer.innerHTML =
+      "<p class='error-message'>No post ID provided. Please select a post to view.</p>";
+    return;
+  }
+
+  try {
+    postContainer.innerHTML = "<p>Loading post...</p>";
+    const post = await fetchSinglePost(postId);
+
+    if (post) {
+      postContainer.innerHTML = "";
+      const postCard = renderPostCard(post, true);
+      postCard.style.cursor = "default";
+      postCard.onclick = null;
+      postContainer.append(postCard);
+    }
+  } catch (error) {
+    console.error("Failed to display post:", error);
+    postContainer.innerHTML = `<p class='error-message'>${error.message || "Failed to load post. Please try again later."}</p>`;
   }
 }
 
