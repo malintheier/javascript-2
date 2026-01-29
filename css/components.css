@@ -57,8 +57,18 @@
 }
 
 .btn-primary {
-  background: #4caf50;
+  background-color: #1c1e21;
   color: white;
+  border: 1px solid #3a3b3c;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  border: 2px solid white;
 }
 
 .post-card {
