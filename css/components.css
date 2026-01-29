@@ -306,6 +306,10 @@
   padding: 30px 20px;
 }
 
+.landing-header {
+  display: flex;
+}
+
 .auth-logo {
   height: 30px;
   width: auto;
@@ -411,6 +415,15 @@
   height: auto;
 }
 
+.landing-logo-desktop {
+  display: none;
+}
+
+.landing-logo-mobile {
+  display: block;
+  width: 250px;
+}
+
 .landing-content h1 {
   font-size: 32px;
   font-weight: bold;
@@ -481,6 +494,18 @@
 
   .landing-content h1 {
     font-size: 36px;
+  }
+
+  .landing-header {
+    display: none;
+  }
+
+  .landing-logo-desktop {
+    display: block;
+  }
+
+  .landing-logo-mobile {
+    display: none;
   }
 }
 
