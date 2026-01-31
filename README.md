@@ -1,6 +1,9 @@
 # javascript-2
 
-JavaScript 2 Course Assignment
+JavaScript 2 Course Assignment - Pulse
+
+<img width="1106" height="566" alt="image" src="https://github.com/user-attachments/assets/1cf29871-9ac5-46c3-b273-d1d774b487cf" />
+
 
 🔗 **Live Demo:** [https://pulse-2026.netlify.app/](https://pulse-2026.netlify.app/)
 
