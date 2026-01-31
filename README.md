@@ -2,6 +2,8 @@
 
 JavaScript 2 Course Assignment
 
+🔗 **Live Demo:** [https://pulse-2026.netlify.app/](https://pulse-2026.netlify.app/)
+
 ## Description
 
 A social media application built with vanilla JavaScript that allows users to create accounts, manage posts, and interact with profiles. This project demonstrates modern JavaScript development practices including API integration, authentication, and dynamic content rendering.
