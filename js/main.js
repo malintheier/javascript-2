@@ -21,6 +21,18 @@ import {
 
 const displayContainer = document.getElementById("displayContainer");
 
+/**
+ * Loads and displays the main feed with posts filtered by the "Pulse2026" tag.
+ * Fetches all posts from the API and filters them to show only posts with the required tag.
+ * Displays a loading message while fetching and handles errors gracefully.
+ *
+ * @async
+ * @function loadFeed
+ * @returns {Promise<void>} No return value, updates the DOM directly
+ * @throws {Error} If fetching posts fails or display container is not found
+ * @example
+ * await loadFeed();
+ */
 export async function loadFeed() {
   try {
     if (!displayContainer) {
@@ -48,6 +60,21 @@ export async function loadFeed() {
   }
 }
 
+/**
+ * Handles search functionality for both posts and profiles.
+ * Searches based on the provided query and type, filters posts by "Pulse2026" tag,
+ * and displays results in the display container. Returns to feed if query is empty.
+ *
+ * @async
+ * @function handleSearch
+ * @param {string} query - The search query string entered by the user
+ * @param {string} searchType - The type of search to perform: "posts" or "profiles"
+ * @returns {Promise<void>} No return value, updates the DOM with search results
+ * @throws {Error} If search operation fails or display container is not found
+ * @example
+ * await handleSearch("javascript", "posts");
+ * await handleSearch("john", "profiles");
+ */
 async function handleSearch(query, searchType) {
   try {
     if (!displayContainer) {
@@ -81,6 +108,22 @@ async function handleSearch(query, searchType) {
   }
 }
 
+/**
+ * Loads and displays a user profile with their information and posts.
+ * Fetches profile data based on URL parameter or current logged-in user.
+ * Handles profile avatar/bio editing for own profile and follow/unfollow for other profiles.
+ * Also displays all posts created by the profile user.
+ *
+ * @async
+ * @function loadProfile
+ * @returns {Promise<void>} No return value, updates the DOM with profile information
+ * @throws {Error} If profile fetch fails, username is missing, or required elements are not found
+ * @example
+ * // Load profile from URL parameter ?name=username
+ * await loadProfile();
+ * // Load current user's profile if no parameter
+ * await loadProfile();
+ */
 async function loadProfile() {
   try {
     const { getUser } = await import("./utils/storage.js");
