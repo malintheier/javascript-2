@@ -20,6 +20,10 @@
   color: white;
 }
 
+.modal-content h2 {
+  text-transform: uppercase;
+}
+
 .modal-close {
   float: right;
   cursor: pointer;
@@ -652,7 +656,6 @@
   margin: 0 0 20px 0;
   font-size: 16px;
   color: white;
-  text-transform: uppercase;
 }
 
 .mobile-logout-confirm {
@@ -664,7 +667,6 @@
   text-decoration: none;
   margin-bottom: 10px;
   font-weight: 600;
-  text-transform: uppercase;
   width: 100%;
   border: none;
   cursor: pointer;
@@ -679,5 +681,4 @@
   width: 100%;
   cursor: pointer;
   font-size: 16px;
-  text-transform: uppercase;
 }
