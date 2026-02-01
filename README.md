@@ -136,6 +136,19 @@ The application follows a modular structure with separation of concerns:
 - **Utils**: Helper functions for common tasks
 - **CSS**: Organized stylesheet architecture
 
+## AI Assistance
+
+This project utilized AI tools (Microsoft Copilot) to enhance development efficiency and problem-solving. All AI-generated code has been thoroughly reviewed, tested, and refined to ensure quality and maintainability.
+
+**AI contributions include:**
+- **Debugging support**: Analyzing complex error codes and network issues
+- **Feature implementation**: Tag-based filtering system for "Pulse 2026" content
+- **Modal development**: Create post and edit post functionality with form handling
+- **Search functionality**: Dual-mode search supporting both posts and user profiles with intelligent filtering
+- **Version control**: Git commit messages and repository documentation
+- **Design assets**: Logo creation and branding elements
+- **Error handling**: User-friendly error message system and validation feedback
+
 ## License
 
 This project is created as part of a course assignment.
