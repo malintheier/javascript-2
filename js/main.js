@@ -327,7 +327,12 @@ async function loadProfile() {
           banner: profile.banner,
         },
       }));
-      generatePostsHTML(postsWithAuthor, postsContainer);
+
+      const sortedPosts = postsWithAuthor.sort(
+        (a, b) => new Date(b.created) - new Date(a.created),
+      );
+
+      generatePostsHTML(sortedPosts, postsContainer);
     }
   } catch (error) {
     console.error("Error loading profile:", error);
