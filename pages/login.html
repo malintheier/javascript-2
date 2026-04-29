@@ -9,44 +9,48 @@
     />
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="../css/global.css" />
-    <link rel="stylesheet" href="../css/layout.css" />
-    <link rel="stylesheet" href="../css/components.css" />
-    <link rel="stylesheet" href="../css/forms.css" />
     <link rel="stylesheet" href="../css/tailwind.output.css" />
     <script type="module" src="../js/modules/formValidation.js"></script>
     <title>Login</title>
   </head>
   <body>
-    <header class="auth-header">
-      <img src="../assets/pulse.svg" alt="Pulse" class="auth-logo" />
+    <header class="flex justify-center py-[30px] px-5">
+      <img src="../assets/pulse.svg" alt="Pulse" class="h-[30px] w-auto" />
     </header>
     <main>
-      <div class="login-container">
-        <h1>Login</h1>
-        <form id="loginForm" class="login-form">
-          <div class="form-group">
-            <label for="email">Email</label>
+      <div class="max-w-[400px] mx-auto p-5">
+        <h1 class="text-center mb-[30px] text-[28px]">Login</h1>
+        <form id="loginForm" class="flex flex-col gap-5" novalidate>
+          <div class="flex flex-col gap-2">
+            <label for="email" class="text-sm font-medium">Email</label>
             <input
               type="email"
               id="email"
               name="email"
               placeholder="Enter your email"
+              class="p-3 text-base bg-[#3a3b3c] border border-solid border-[#3a3b3c] rounded-lg text-white focus:outline-none focus:border-white"
               required
             />
           </div>
 
-          <div class="form-group">
-            <label for="password">Password</label>
+          <div class="flex flex-col gap-2">
+            <label for="password" class="text-sm font-medium">Password</label>
             <input
               type="password"
               id="password"
               name="password"
               placeholder="Enter your password"
+              class="p-3 text-base bg-[#3a3b3c] border border-solid border-[#3a3b3c] rounded-lg text-white focus:outline-none focus:border-white"
               required
             />
           </div>
 
-          <button type="submit" class="btn-primary">Login</button>
+          <button
+            type="submit"
+            class="bg-[#1c1e21] text-white border border-solid border-[#3a3b3c] py-[10px] px-5 rounded cursor-pointer text-sm w-full hover:border-2 hover:border-white transition-colors"
+          >
+            Login
+          </button>
         </form>
       </div>
     </main>
