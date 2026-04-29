@@ -475,6 +475,11 @@
   color: white;
 }
 
+.btn-landing-primary {
+  background: #4caf50;
+  color: white;
+}
+
 .btn-landing.btn-secondary {
   background: #3a3b3c;
   color: white;
