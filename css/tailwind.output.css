@@ -164,6 +164,292 @@
   }
 }
 
+.absolute {
+  position: absolute
+}
+
+.relative {
+  position: relative
+}
+
+.left-0 {
+  left: 0px
+}
+
+.left-\[130px\] {
+  left: 130px
+}
+
+.top-1\/2 {
+  top: 50%
+}
+
+.z-\[1\] {
+  z-index: 1
+}
+
+.z-\[2\] {
+  z-index: 2
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto
+}
+
+.-mt-10 {
+  margin-top: -2.5rem
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem
+}
+
+.mb-\[30px\] {
+  margin-bottom: 30px
+}
+
+.block {
+  display: block
+}
+
+.inline-block {
+  display: inline-block
+}
+
+.flex {
+  display: flex
+}
+
+.hidden {
+  display: none
+}
+
+.h-\[30px\] {
+  height: 30px
+}
+
+.h-\[700px\] {
+  height: 700px
+}
+
+.h-auto {
+  height: auto
+}
+
+.min-h-screen {
+  min-height: 100vh
+}
+
+.w-\[120px\] {
+  width: 120px
+}
+
+.w-\[210px\] {
+  width: 210px
+}
+
+.w-\[350px\] {
+  width: 350px
+}
+
+.w-\[480px\] {
+  width: 480px
+}
+
+.w-auto {
+  width: auto
+}
+
+.w-full {
+  width: 100%
+}
+
+.max-w-\[300px\] {
+  max-width: 300px
+}
+
+.max-w-\[500px\] {
+  max-width: 500px
+}
+
+.-translate-y-1\/2 {
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
+.flex-col {
+  flex-direction: column
+}
+
+.items-center {
+  align-items: center
+}
+
+.justify-center {
+  justify-content: center
+}
+
+.gap-5 {
+  gap: 1.25rem
+}
+
+.gap-\[15px\] {
+  gap: 15px
+}
+
+.gap-\[60px\] {
+  gap: 60px
+}
+
+.rounded-\[30px\] {
+  border-radius: 30px
+}
+
+.rounded-lg {
+  border-radius: 0.5rem
+}
+
+.bg-\[\#3a3b3c\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(58 59 60 / var(--tw-bg-opacity, 1))
+}
+
+.bg-\[\#4caf50\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(76 175 80 / var(--tw-bg-opacity, 1))
+}
+
+.p-5 {
+  padding: 1.25rem
+}
+
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem
+}
+
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem
+}
+
+.py-\[14px\] {
+  padding-top: 14px;
+  padding-bottom: 14px
+}
+
+.py-\[30px\] {
+  padding-top: 30px;
+  padding-bottom: 30px
+}
+
+.text-center {
+  text-align: center
+}
+
+.text-\[18px\] {
+  font-size: 18px
+}
+
+.text-\[32px\] {
+  font-size: 32px
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem
+}
+
+.font-bold {
+  font-weight: 700
+}
+
+.font-semibold {
+  font-weight: 600
+}
+
+.leading-relaxed {
+  line-height: 1.625
+}
+
+.text-\[\#b0b3b8\] {
+  --tw-text-opacity: 1;
+  color: rgb(176 179 184 / var(--tw-text-opacity, 1))
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+}
+
+.no-underline {
+  text-decoration-line: none
+}
+
+.mix-blend-lighten {
+  mix-blend-mode: lighten
+}
+
+.shadow-\[0_20px_60px_rgba\(0\2c 0\2c 0\2c 0\.5\)\] {
+  --tw-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  --tw-shadow-colored: 0 20px 60px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+}
+
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms
+}
+
+.duration-200 {
+  transition-duration: 200ms
+}
+
+.hover\:-translate-y-0\.5:hover {
+  --tw-translate-y: -0.125rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
+.hover\:opacity-90:hover {
+  opacity: 0.9
+}
+
+@media (min-width: 1024px) {
+  .lg\:block {
+    display: block
+  }
+
+  .lg\:flex {
+    display: flex
+  }
+
+  .lg\:hidden {
+    display: none
+  }
+
+  .lg\:max-w-\[450px\] {
+    max-width: 450px
+  }
+
+  .lg\:items-center {
+    align-items: center
+  }
+
+  .lg\:justify-center {
+    justify-content: center
+  }
+
+  .lg\:p-10 {
+    padding: 2.5rem
+  }
+
+  .lg\:text-\[36px\] {
+    font-size: 36px
+  }
 }
