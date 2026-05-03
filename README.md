@@ -175,15 +175,83 @@ npm run build
 
 This project utilized AI tools (Microsoft Copilot) to enhance development efficiency and problem-solving. All AI-generated code has been thoroughly reviewed, tested, and refined to ensure quality and maintainability.
 
-**AI contributions include:**
+---
 
-- **Debugging support**: Analyzing complex error codes and network issues
-- **Feature implementation**: Tag-based filtering system for "Pulse 2026" content
-- **Modal development**: Create post and edit post functionality with form handling
-- **Search functionality**: Dual-mode search supporting both posts and user profiles with intelligent filtering
-- **Version control**: Git commit messages and repository documentation
-- **Design assets**: Logo creation and branding elements
-- **Error handling**: User-friendly error message system and validation feedback
+### AI Usage Log
+
+---
+
+**Entry 1**
+
+- **Tool used:** Microsoft Copilot (GitHub Copilot Chat)
+- **Date:** Unknown – JavaScript 2 CA
+- **Purpose:** Debugging – analyzing complex error codes and network request failures in the API layer
+- **Outcome:** Identified root causes of failed fetch calls and malformed request headers; fixes were implemented and verified independently
+
+---
+
+**Entry 2**
+
+- **Tool used:** Microsoft Copilot (GitHub Copilot Chat)
+- **Date:** Unknown – JavaScript 2 CA
+- **Purpose:** Feature implementation – designing and implementing a tag-based filtering system to scope the feed to "Pulse2026" content
+- **Outcome:** Filtering logic added to `fetchPosts()` and `loadFeed()`; code reviewed, tested, and refined before use
+
+---
+
+**Entry 3**
+
+- **Tool used:** Microsoft Copilot (GitHub Copilot Chat)
+- **Date:** Unknown – JavaScript 2 CA
+- **Purpose:** Modal development – creating the create post and edit post modal forms with character counting, field validation, and form submission handling
+- **Outcome:** Modal structure and event handling implemented in `showMessage.js`; all logic reviewed and adapted to fit the project's architecture
+
+---
+
+**Entry 4**
+
+- **Tool used:** Microsoft Copilot (GitHub Copilot Chat)
+- **Date:** Unknown – JavaScript 2 CA
+- **Purpose:** Search functionality – implementing dual-mode search supporting both posts and user profiles with intelligent query filtering
+- **Outcome:** `handleSearch()` function implemented in `main.js` with separate code paths for post and profile search; reviewed and tested against the live API
+
+---
+
+**Entry 5**
+
+- **Tool used:** Microsoft Copilot (GitHub Copilot Chat)
+- **Date:** Throughout JavaScript 2 CA and CSS Frameworks CA
+- **Purpose:** Version control – drafting Git commit messages and writing README documentation
+- **Outcome:** Commit messages written with AI suggestions then reviewed and edited for accuracy; README sections written collaboratively and verified against actual project state
+
+---
+
+**Entry 6**
+
+- **Tool used:** Microsoft Copilot (GitHub Copilot Chat)
+- **Date:** Unknown – JavaScript 2 CA
+- **Purpose:** Design assets – generating ideas and assisting with logo creation and branding elements for the Pulse application
+- **Outcome:** Logo concept developed with AI assistance; final assets reviewed and integrated into the project manually
+
+---
+
+**Entry 7**
+
+- **Tool used:** Microsoft Copilot (GitHub Copilot Chat)
+- **Date:** Unknown – JavaScript 2 CA
+- **Purpose:** Error handling – designing a user-friendly error message system with toast notifications and validation feedback across forms and API calls
+- **Outcome:** `showMessage()` utility implemented in `showMessage.js` with typed messages (info, success, error, warning); error handling added consistently across the API layer and UI modules
+
+---
+
+**Entry 8**
+
+- **Tool used:** Microsoft Copilot (GitHub Copilot Chat)
+- **Date:** 29 April 2026 – JavaScript 2 CA
+- **Purpose:** Debugging modal styling conflicts – resolving errors where Tailwind CSS utility classes were not applying correctly inside dynamically created modal elements, causing layout and visibility issues
+- **Outcome:** Identified that dynamically injected HTML was not being picked up by Tailwind's JIT compiler; resolved by ensuring the relevant classes were present in the source files and by adding targeted CSS overrides in `components.css` for modal-specific styles
+
+---
 
 ## License
 
