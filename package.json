@@ -1,0 +1,32 @@
+{
+  "name": "javascript-2",
+  "version": "1.0.0",
+  "description": "JavaScript 2 Course Assignment - Pulse",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tailwindcss -i ./css/tailwind.css -o ./css/tailwind.output.css --watch",
+    "build": "tailwindcss -i ./css/tailwind.css -o ./css/tailwind.output.css --minify",
+    "sass:dev": "sass --watch scss:css --no-source-map",
+    "sass:build": "sass scss:css --no-source-map --style=compressed",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malintheier/javascript-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/malintheier/javascript-2/issues"
+  },
+  "homepage": "https://github.com/malintheier/javascript-2#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.12",
+    "prettier": "^3.8.3",
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "sass": "^1.99.0",
+    "tailwindcss": "^3.4.19"
+  }
+}

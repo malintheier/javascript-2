@@ -9,49 +9,61 @@
     />
     <link rel="stylesheet" href="/css/reset.css" />
     <link rel="stylesheet" href="/css/global.css" />
-    <link rel="stylesheet" href="/css/components.css" />
+    <link rel="stylesheet" href="/css/tailwind.output.css" />
     <title>Pulse</title>
   </head>
   <body>
-    <header class="auth-header landing-header">
-      <img src="assets/pulse.svg" alt="Pulse" class="auth-logo" />
+    <header class="flex justify-center px-5 py-[30px] lg:hidden">
+      <img src="assets/pulse.svg" alt="Pulse" class="h-[30px] w-auto" />
     </header>
-    <main class="landing-main">
-      <div class="landing-preview">
-        <div class="landing-phones">
+    <main
+      class="flex min-h-screen items-center justify-center gap-[60px] p-5 lg:p-10"
+    >
+      <div class="hidden lg:flex lg:items-center lg:justify-center">
+        <div
+          class="relative flex h-[700px] w-[480px] items-center justify-center"
+        >
           <img
             src="assets/iphone-1.png"
             alt="Pulse app preview"
-            class="landing-phone landing-phone-1"
+            class="absolute left-0 top-1/2 z-[2] h-auto w-[350px] -translate-y-1/2 rounded-[30px] mix-blend-lighten shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
           />
           <img
             src="assets/iphone-2.png"
             alt="Pulse app features"
-            class="landing-phone landing-phone-2"
+            class="absolute left-[130px] top-1/2 z-[1] h-auto w-[350px] -translate-y-1/2 rounded-[30px] mix-blend-lighten shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
           />
         </div>
       </div>
-      <div class="landing-container">
+      <div
+        class="-mt-10 flex max-w-[500px] flex-col items-center gap-5 text-center lg:max-w-[450px]"
+      >
         <img
           src="assets/logo.png"
           alt="Pulse"
-          class="landing-logo landing-logo-mobile"
+          class="block h-auto w-[210px] lg:hidden"
         />
         <img
           src="assets/pulse.svg"
           alt="Pulse"
-          class="landing-logo landing-logo-desktop"
+          class="hidden h-auto w-[120px] lg:block"
         />
-        <div class="landing-content">
-          <h1>Your Music, Your Story</h1>
-          <p>
+        <div>
+          <h1 class="mb-5 text-[32px] font-bold lg:text-[36px]">
+            Your Music, Your Story
+          </h1>
+          <p class="mb-[30px] text-[18px] leading-relaxed text-[#b0b3b8]">
             Share your favorite songs and connect with music lovers worldwide
           </p>
-          <div class="landing-buttons">
-            <a href="pages/register.html" class="btn-landing btn-primary"
+          <div class="mx-auto flex w-full max-w-[300px] flex-col gap-[15px]">
+            <a
+              href="pages/register.html"
+              class="inline-block w-full rounded-lg bg-[#4caf50] px-7 py-[14px] text-center text-base font-semibold text-white no-underline transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90"
               >Create Account</a
             >
-            <a href="pages/login.html" class="btn-landing btn-secondary"
+            <a
+              href="pages/login.html"
+              class="inline-block w-full rounded-lg bg-[#3a3b3c] px-7 py-[14px] text-center text-base font-semibold text-white no-underline transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90"
               >Sign In</a
             >
           </div>

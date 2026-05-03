@@ -9,162 +9,251 @@
     />
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="../css/global.css" />
-    <link rel="stylesheet" href="../css/layout.css" />
     <link rel="stylesheet" href="../css/components.css" />
     <link rel="stylesheet" href="../css/forms.css" />
+    <link rel="stylesheet" href="../css/tailwind.output.css" />
     <script type="module" src="../js/main.js"></script>
     <title>Feed</title>
   </head>
   <body>
-    <header class="mobile-header-top">
-      <button id="mobileCreateBtn" class="mobile-btn-left">
-        <img src="../assets/add.svg" alt="Create" class="mobile-icon" />
+    <header
+      class="fixed left-0 right-0 top-0 z-[100] flex h-[60px] items-center justify-between bg-[#1c1e21] px-5 lg:hidden"
+    >
+      <button
+        id="mobileCreateBtn"
+        class="cursor-pointer border-none bg-transparent"
+      >
+        <img src="../assets/add.svg" alt="Create" class="h-[30px] w-[30px]" />
       </button>
-      <img src="../assets/pulse.svg" alt="Pulse" class="mobile-logo" />
-      <button id="mobileLogoutBtn" class="mobile-btn-right">
-        <img src="../assets/sign-out.svg" alt="Logout" class="mobile-icon" />
+      <img src="../assets/pulse.svg" alt="Pulse" class="h-[30px] w-auto" />
+      <button
+        id="mobileLogoutBtn"
+        class="cursor-pointer border-none bg-transparent"
+      >
+        <img
+          src="../assets/sign-out.svg"
+          alt="Logout"
+          class="h-[30px] w-[30px]"
+        />
       </button>
     </header>
-    <nav class="mobile-nav-bottom">
-      <a href="feed.html" class="mobile-nav-item">
-        <img src="../assets/home.svg" alt="Home" class="mobile-icon" />
+
+    <nav
+      class="fixed bottom-0 left-0 right-0 z-[100] flex h-[60px] items-center justify-between border-t border-solid border-[#3a3b3c] bg-[#1c1e21] px-5 lg:hidden"
+    >
+      <a
+        href="feed.html"
+        class="flex items-center justify-center text-inherit no-underline"
+      >
+        <img src="../assets/home.svg" alt="Home" class="h-[30px] w-[30px]" />
       </a>
-      <button id="mobileSearchBtn" class="mobile-nav-item">
-        <img src="../assets/search.svg" alt="Search" class="mobile-icon" />
+      <button
+        id="mobileSearchBtn"
+        class="flex cursor-pointer items-center justify-center border-none bg-transparent"
+      >
+        <img
+          src="../assets/search.svg"
+          alt="Search"
+          class="h-[30px] w-[30px]"
+        />
       </button>
-      <a href="profile.html" class="mobile-nav-item">
-        <img src="" alt="Profile" class="mobile-icon mobile-profile-avatar" />
+      <a
+        href="profile.html"
+        class="flex items-center justify-center text-inherit no-underline"
+      >
+        <img
+          src=""
+          alt="Profile"
+          class="mobile-profile-avatar h-[30px] w-[30px] rounded-full object-cover"
+        />
       </a>
     </nav>
 
-    <div id="mobileSearchOverlay" class="mobile-search-overlay">
-      <div class="mobile-search-header">
-        <button id="mobileSearchClose" class="mobile-search-close">
-          <img src="../assets/close.svg" alt="Close" class="mobile-icon" />
+    <div
+      id="mobileSearchOverlay"
+      class="mobile-search-overlay fixed bottom-0 left-0 right-0 top-full z-[200] flex flex-col bg-[#1c1e21] transition-[top] duration-300 ease-in-out"
+    >
+      <div class="flex h-[60px] border-b border-solid border-[#3a3b3c] px-5">
+        <button
+          id="mobileSearchClose"
+          class="cursor-pointer border-none bg-transparent"
+        >
+          <img
+            src="../assets/close.svg"
+            alt="Close"
+            class="h-[30px] w-[30px]"
+          />
         </button>
       </div>
-      <div class="mobile-search-content">
+      <div class="flex-1 overflow-y-auto p-5">
         <input
           type="search"
           id="mobileSearchInput"
           placeholder="Search..."
-          class="mobile-search-input"
+          class="mb-[15px] w-full rounded-lg border border-solid border-[#3a3b3c] bg-[#3a3b3c] p-3 text-base text-white"
         />
-        <div id="mobileSearchResults" class="mobile-search-results"></div>
+        <div id="mobileSearchResults" class="mt-5"></div>
       </div>
     </div>
 
-    <div id="mobileCreateOverlay" class="mobile-create-overlay">
-      <div class="mobile-create-header">
-        <button id="mobileCreateClose" class="mobile-create-close">
-          <img src="../assets/close.svg" alt="Close" class="mobile-icon" />
+    <div
+      id="mobileCreateOverlay"
+      class="mobile-create-overlay fixed -left-full top-0 z-[200] flex h-full w-full flex-col bg-[#1c1e21] transition-[left] duration-300 ease-in-out"
+    >
+      <div
+        class="flex h-[60px] items-center gap-[15px] border-b border-solid border-[#3a3b3c] px-5"
+      >
+        <button
+          id="mobileCreateClose"
+          class="cursor-pointer border-none bg-transparent"
+        >
+          <img
+            src="../assets/close.svg"
+            alt="Close"
+            class="h-[30px] w-[30px]"
+          />
         </button>
-        <h2>New post</h2>
+        <h2 class="m-0 text-[20px] font-semibold uppercase text-white">
+          New post
+        </h2>
       </div>
-      <div class="mobile-create-content">
-        <form id="mobileCreateForm">
+      <div class="flex-1 overflow-y-auto p-5">
+        <form id="mobileCreateForm" class="flex flex-col gap-[15px] text-white">
           <input
             type="text"
             id="mobilePostSong"
             placeholder="Song"
-            class="mobile-input"
+            class="w-full rounded-lg border border-solid border-[#3a3b3c] bg-[#1c1e21] p-3 font-[inherit] text-base text-white"
           />
           <input
             type="text"
             id="mobilePostArtist"
             placeholder="Artist"
-            class="mobile-input"
+            class="w-full rounded-lg border border-solid border-[#3a3b3c] bg-[#1c1e21] p-3 font-[inherit] text-base text-white"
           />
           <input
             type="text"
             id="mobilePostTitle"
             placeholder="Title"
-            class="mobile-input"
+            class="w-full rounded-lg border border-solid border-[#3a3b3c] bg-[#1c1e21] p-3 font-[inherit] text-base text-white"
           />
           <textarea
             id="mobilePostBody"
             placeholder="What's on your mind?"
-            class="mobile-textarea"
+            class="min-h-[200px] w-full resize-y rounded-lg border border-solid border-[#3a3b3c] bg-[#1c1e21] p-3 font-[inherit] text-base text-white"
           ></textarea>
           <input
             type="url"
             id="mobilePostImageUrl"
             placeholder="Album cover URL (optional)"
-            class="mobile-input"
+            class="w-full rounded-lg border border-solid border-[#3a3b3c] bg-[#1c1e21] p-3 font-[inherit] text-base text-white"
           />
           <input
             type="text"
             id="mobilePostImageAlt"
             placeholder="Image alt text (optional)"
-            class="mobile-input"
+            class="w-full rounded-lg border border-solid border-[#3a3b3c] bg-[#1c1e21] p-3 font-[inherit] text-base text-white"
           />
-          <button type="submit" class="mobile-submit-btn">Post</button>
+          <button
+            type="submit"
+            class="cursor-pointer rounded-lg border-none bg-[#3a3b3c] p-3 text-base font-semibold text-white"
+          >
+            Post
+          </button>
         </form>
       </div>
     </div>
 
-    <div id="mobileLogoutOverlay" class="mobile-logout-overlay">
-      <div class="mobile-logout-dialog">
-        <p>Are you sure you want to log out?</p>
-        <a href="../index.html" class="mobile-logout-confirm">Yes, log out</a>
-        <button id="mobileLogoutCancel" class="mobile-logout-cancel">
+    <div
+      id="mobileLogoutOverlay"
+      class="mobile-logout-overlay fixed inset-0 z-[200] hidden items-center justify-center bg-black/50"
+    >
+      <div
+        class="w-[90%] max-w-[300px] rounded-xl bg-[#1c1e21] p-[30px] text-center text-white"
+      >
+        <p class="mb-5 text-base text-white">
+          Are you sure you want to log out?
+        </p>
+        <a
+          href="../index.html"
+          class="mb-[10px] block rounded-lg bg-[#f44336] p-3 text-center text-base font-semibold text-white no-underline"
+          >Yes, log out</a
+        >
+        <button
+          id="mobileLogoutCancel"
+          class="w-full cursor-pointer rounded-lg border-none bg-[#3a3b3c] p-3 text-base text-white"
+        >
           Cancel
         </button>
       </div>
     </div>
 
-    <header class="desktop-header">
-      <nav class="sidebar">
-        <ul>
-          <li class="sidebar-logo">
-            <img src="../assets/logo.png" alt="Pulse Logo" />
+    <header
+      class="desktop-header hidden lg:fixed lg:bottom-0 lg:left-0 lg:top-0 lg:z-[100] lg:block lg:w-[100px] lg:bg-[#1c1e21] lg:transition-[width] lg:duration-300 lg:ease-in-out"
+    >
+      <nav class="sidebar lg:h-full lg:py-5">
+        <ul class="lg:flex lg:h-full lg:flex-col lg:gap-[10px]">
+          <li class="sidebar-logo lg:mb-[30px] lg:px-5">
+            <img
+              src="../assets/logo.png"
+              alt="Pulse Logo"
+              class="lg:h-auto lg:w-[70px]"
+            />
           </li>
-          <li>
-            <a href="feed.html"
-              ><img
+          <li class="lg:px-5">
+            <a href="feed.html">
+              <img
                 src="../assets/home.svg"
                 alt="Home Icon"
-                class="desktop-icon"
-            /></a>
+                class="desktop-icon h-[30px] w-[30px]"
+              />
+            </a>
           </li>
-          <li>
+          <li class="lg:px-5">
             <button id="desktopSearchBtn" class="desktop-btn">
               <img
                 src="../assets/search.svg"
                 alt="Search icon"
-                class="desktop-icon"
+                class="desktop-icon h-[30px] w-[30px]"
               />
             </button>
           </li>
-          <li class="desktop-search-container">
+          <li class="desktop-search-container hidden lg:px-5">
             <input
               type="search"
               id="desktopSearchInput"
               placeholder="Search..."
-              class="desktop-search-input"
+              class="w-full rounded-lg border border-solid border-[#3a3b3c] bg-[#3a3b3c] p-3 text-sm text-white focus:border-white focus:outline-none"
             />
-            <div id="desktopSearchResults" class="desktop-search-results"></div>
+            <div
+              id="desktopSearchResults"
+              class="max-h-[400px] overflow-y-auto"
+            ></div>
           </li>
-          <li>
+          <li class="lg:px-5">
             <button id="desktopCreateBtn" class="desktop-btn">
               <img
                 src="../assets/add.svg"
                 alt="Create icon"
-                class="desktop-icon"
+                class="desktop-icon h-[30px] w-[30px]"
               />
             </button>
           </li>
-          <li>
-            <a href="profile.html"
-              ><img src="" alt="Profile Icon" class="desktop-icon"
-            /></a>
+          <li class="lg:px-5">
+            <a href="profile.html">
+              <img
+                src=""
+                alt="Profile Icon"
+                class="desktop-icon h-[30px] w-[30px]"
+              />
+            </a>
           </li>
-          <li>
+          <li class="lg:px-5">
             <button id="desktopLogoutBtn" class="desktop-btn">
               <img
                 src="../assets/sign-out.svg"
                 alt="Logout icon"
-                class="desktop-icon"
+                class="desktop-icon h-[30px] w-[30px]"
               />
             </button>
           </li>
@@ -172,9 +261,11 @@
       </nav>
     </header>
 
-    <div class="main-wrapper">
+    <div
+      class="main-wrapper px-5 pb-5 pt-[70px] lg:ml-[100px] lg:flex lg:justify-center lg:p-10 lg:transition-[margin-left] lg:duration-300 lg:ease-in-out"
+    >
       <main>
-        <div id="displayContainer" class="display-container"></div>
+        <div id="displayContainer"></div>
       </main>
       <footer></footer>
     </div>

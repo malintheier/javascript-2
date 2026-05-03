@@ -1,0 +1,264 @@
+@use "variables" as *;
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form {
+  &-input {
+    padding: 8px;
+    background-color: $bg-dark;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-md;
+    color: white;
+  }
+
+  &-textarea {
+    padding: 8px;
+    min-height: 100px;
+    background-color: $bg-dark;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-md;
+    color: white;
+  }
+
+  &-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    input {
+      padding: 12px;
+      font-size: 16px;
+      background-color: $bg-input;
+      border: 1px solid $border-color;
+      border-radius: $border-radius-md;
+      color: white;
+    }
+  }
+}
+
+label {
+  font-weight: 500;
+}
+
+#mobileCreateForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  color: white;
+}
+
+.mobile {
+  &-input,
+  &-textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-md;
+    font-family: inherit;
+    background-color: $bg-dark;
+    color: white;
+  }
+
+  &-textarea {
+    min-height: 200px;
+    resize: vertical;
+  }
+
+  &-submit-btn {
+    background: $bg-input;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+  }
+
+  &-search-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: $bg-input;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-md;
+    margin-bottom: 15px;
+    color: white;
+
+    &::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    &::-ms-clear {
+      display: none;
+    }
+  }
+}
+
+.register-container,
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+  }
+}
+
+.register-form,
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.landing {
+  &-header {
+    display: flex;
+  }
+
+  &-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    gap: 60px;
+  }
+
+  &-preview {
+    display: none;
+  }
+
+  &-phones {
+    position: relative;
+    width: 480px;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-phone {
+    position: absolute;
+    width: 350px;
+    height: auto;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    mix-blend-mode: lighten;
+
+    &-1 {
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    &-2 {
+      top: 50%;
+      left: 130px;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+  }
+
+  &-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 500px;
+    gap: 20px;
+    margin-top: -40px;
+  }
+
+  &-logo {
+    width: 120px;
+    height: auto;
+
+    &-desktop {
+      display: none;
+    }
+
+    &-mobile {
+      display: block;
+      width: 210px;
+    }
+  }
+
+  &-content {
+    h1 {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      color: $text-muted;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+  }
+
+  &-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .landing {
+    &-main {
+      flex-direction: row;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    &-preview {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-container {
+      max-width: 450px;
+    }
+
+    &-content h1 {
+      font-size: 36px;
+    }
+
+    &-header {
+      display: none;
+    }
+
+    &-logo {
+      &-desktop {
+        display: block;
+      }
+
+      &-mobile {
+        display: none;
+      }
+    }
+  }
+}

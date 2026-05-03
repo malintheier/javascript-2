@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.mobile-search-overlay.active {
+  top: 0;
+}
+.mobile-create-overlay.active {
+  left: 0;
+}
+.mobile-logout-overlay.active {
+  display: flex !important;
+}
+.desktop-header.expanded {
+  width: 350px;
+}
+.desktop-header.expanded .desktop-search-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.desktop-header.expanded ~ .main-wrapper {
+  margin-left: 350px;
+}
+
+@media (min-width: 1024px) {
+  .desktop-header {
+    border-right: 1px solid #3a3b3c;
+  }
+
+  .sidebar a,
+  .desktop-btn {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    width: 100%;
+    text-decoration: none;
+    color: white;
+  }
+  .sidebar a:hover,
+  .desktop-btn:hover {
+    background-color: #3a3b3c;
+  }
+  .sidebar li a[href*="profile"] img,
+  .sidebar a[href*="profile"] img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 30px;
+    height: 30px;
+  }
+  .main-wrapper main {
+    max-width: 800px;
+    width: 100%;
+  }
+}
