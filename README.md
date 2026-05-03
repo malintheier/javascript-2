@@ -247,7 +247,7 @@ This project utilized AI tools (Microsoft Copilot) to enhance development effici
 **Entry 8**
 
 - **Tool used:** Microsoft Copilot (GitHub Copilot Chat)
-- **Date:** 29 April 2026 – JavaScript 2 CA
+- **Date:** 29 April 2026 - CSS Frameworks
 - **Purpose:** Debugging modal styling conflicts – resolving errors where Tailwind CSS utility classes were not applying correctly inside dynamically created modal elements, causing layout and visibility issues
 - **Outcome:** Identified that dynamically injected HTML was not being picked up by Tailwind's JIT compiler; resolved by ensuring the relevant classes were present in the source files and by adding targeted CSS overrides in `components.css` for modal-specific styles
 
