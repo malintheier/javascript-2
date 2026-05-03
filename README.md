@@ -4,7 +4,6 @@ JavaScript 2 Course Assignment - Pulse
 
 <img width="1106" height="566" alt="image" src="https://github.com/user-attachments/assets/1cf29871-9ac5-46c3-b273-d1d774b487cf" />
 
-
 🔗 **Live Demo:** [https://pulse-2026.netlify.app/](https://pulse-2026.netlify.app/)
 
 ## Description
@@ -14,16 +13,28 @@ A social media application built with vanilla JavaScript that allows users to cr
 ## Features
 
 - User authentication (login/register)
-- Create, read, and display posts
-- User profile management
-- Feed with post listings
-- Form validation
+- Create, edit, and delete posts via modal forms
+- Tag-based post filtering (Pulse2026 tag)
+- Dual-mode search supporting both posts and user profiles
+- Individual post view with full details
+- User profile pages with follower/following counts
+- Follow and unfollow users
+- Profile bio editing
+- Author links from post cards to profiles
+- Album cover image support with alt text on posts
+- Character counter (280 limit) on post body
+- Delete confirmation dialog before removing posts
+- Form validation with user feedback
+- Auth-guarded routes (redirects unauthenticated users)
 - Responsive design
 
 ## Project Structure
 
 ```
 ├── index.html              # Landing page
+├── package.json            # Node dependencies and scripts
+├── tailwind.config.js      # Tailwind CSS configuration
+├── postcss.config.js       # PostCSS configuration
 ├── pages/                  # Application pages
 │   ├── feed.html          # Main feed with posts
 │   ├── login.html         # User login
@@ -31,39 +42,49 @@ A social media application built with vanilla JavaScript that allows users to cr
 │   ├── post.html          # Individual post view
 │   └── profile.html       # User profile
 ├── js/                     # JavaScript files
-│   ├── main.js            # Main entry point
+│   ├── main.js            # Main entry point (feed, search, modals)
 │   ├── api/               # API integration
 │   │   ├── auth.js        # Authentication endpoints
-│   │   ├── config.js      # API configuration
-│   │   ├── posts.js       # Post endpoints
-│   │   └── profiles.js    # Profile endpoints
-│   ├── modules/           # Reusable modules
-│   │   ├── formValidation.js
-│   │   ├── renderPostCard.js
-│   │   ├── renderPostList.js
-│   │   └── renderProfileHeader.js
+│   │   ├── config.js      # API configuration and base URLs
+│   │   ├── posts.js       # Post CRUD endpoints
+│   │   └── profiles.js    # Profile, follow/unfollow endpoints
+│   ├── modules/           # Reusable UI modules
+│   │   ├── formValidation.js      # Login/register validation
+│   │   ├── renderPostCard.js      # Individual post card component
+│   │   ├── renderPostList.js      # Post list and profile grid rendering
+│   │   └── renderProfileHeader.js # Profile header component
 │   └── utils/             # Utility functions
-│       ├── authGuard.js   # Route protection
+│       ├── authGuard.js   # Route protection / redirect
 │       ├── getParam.js    # URL parameter handling
-│       ├── showMessage.js # User notifications
+│       ├── showMessage.js # Toast messages, modals, create/edit post forms
 │       └── storage.js     # Local storage management
-├── css/                   # Stylesheets
+├── css/                   # Compiled stylesheets
 │   ├── reset.css         # CSS reset
 │   ├── global.css        # Global styles
 │   ├── layout.css        # Layout styles
 │   ├── components.css    # Component styles
-│   └── forms.css         # Form styles
-└── assets/               # Static assets
+│   ├── forms.css         # Form styles
+│   ├── tailwind.css      # Tailwind directives
+│   └── tailwind.output.css # Compiled Tailwind output
+├── scss/                  # SCSS source files
+│   ├── _variables.scss   # Shared variables
+│   ├── components.scss   # Component styles
+│   ├── forms.scss        # Form styles
+│   ├── global.scss       # Global styles
+│   └── reset.scss        # CSS reset source
+└── assets/               # Static assets (logo, images)
 
 ```
 
 ## Technologies Used
 
 - HTML5
-- CSS3
-- Vanilla JavaScript (ES6+)
-- REST API integration
-- Local Storage
+- CSS3 / SCSS
+- Tailwind CSS (utility-first styling)
+- PostCSS
+- Vanilla JavaScript (ES6+ with ES modules)
+- REST API integration (Noroff Social API)
+- Local Storage for auth token persistence
 
 ## Getting Started
 
@@ -123,24 +144,39 @@ A social media application built with vanilla JavaScript that allows users to cr
 
 1. Register a new account on the registration page
 2. Log in with your credentials
-3. Browse posts on the feed page
-4. Create new posts
-5. View and manage your profile
+3. Browse Pulse2026-tagged posts on the feed page
+4. Use the search bar to search posts or user profiles
+5. Click "Create Post" to open the post creation modal (supports song, artist, body, and album cover)
+6. Click on a post to view it in full detail
+7. Edit or delete your own posts from the feed or post view
+8. Visit a user's profile to follow or unfollow them
+9. Edit your own bio from your profile page
+10. Log out from the navigation menu
 
 ## Development
 
 The application follows a modular structure with separation of concerns:
 
-- **API layer**: Handles all API communications
-- **Modules**: Reusable UI components and rendering logic
-- **Utils**: Helper functions for common tasks
-- **CSS**: Organized stylesheet architecture
+- **API layer**: Handles all API communications with the Noroff Social API, including authentication headers and structured error handling
+- **Modules**: Reusable UI components and rendering logic (post cards, post lists, profile headers)
+- **Utils**: Helper functions for auth guards, URL params, toast/modal messages, and local storage
+- **CSS/SCSS**: Layered stylesheet architecture with a separate Tailwind CSS pipeline
+
+### Build
+
+To compile Tailwind CSS:
+
+```bash
+npm install
+npm run build
+```
 
 ## AI Assistance
 
 This project utilized AI tools (Microsoft Copilot) to enhance development efficiency and problem-solving. All AI-generated code has been thoroughly reviewed, tested, and refined to ensure quality and maintainability.
 
 **AI contributions include:**
+
 - **Debugging support**: Analyzing complex error codes and network issues
 - **Feature implementation**: Tag-based filtering system for "Pulse 2026" content
 - **Modal development**: Create post and edit post functionality with form handling
